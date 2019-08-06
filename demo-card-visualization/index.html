@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Demo Card Visualization</title>
+  <style>
+
+    :root{
+    font-size:100%;
+    box-sizing:border-box;
+    -moz-osx-font-smoothing:grayscale;      
+    -webkit-font-smoothing:antialiased;
+    --black:hsl(0,0%,0%);
+    --white:hsl(0,0%,100%);
+    }
+
+    *, *::after, *::before{
+      box-sizing:inherit;
+    }
+
+    body{
+      background:hsl(0,0%,100%);
+      color:hsl(0,0%,0%);
+      display:grid;
+      font:1rem/1.5 sans-serif;
+      grid-template-columns:repeat(5,1fr);
+    }
+
+    [contenteditable]:focus, [tabindex="0"]:focus, a[href]:focus, area[href]:focus, button:not([disabled]):focus, embed:focus, iframe:focus, input:not([disabled]):focus, object:focus, select:not([disabled]):focus, summary:focus, textarea:not([disabled]):focus{
+      outline:hsl(18,98%,50%) solid 2px;
+    }
+
+    main{
+      grid-column:2 / 5;
+      border:1px solid;
+      padding:1rem;
+    }
+
+    h1, h2, h3, h4, h5, h6{
+      font-weight:600;
+    }
+
+    abbr{
+      cursor:pointer;
+      font-variant:all-small-caps;
+      text-decoration: underline dotted;      
+    }
+
+    .btn{
+      background:hsl(0,0%,100%);
+      border:1px solid hsl(0,0%,50%);
+      cursor:pointer;
+      font:inherit;
+      margin:0;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .hidden-visually {
+      clip:rect(0,0,0,0);
+      -webkit-clip-path:inset(50%);
+      clip-path:inset(50%);
+      height:1px;
+      overflow:hidden;
+      position:absolute;
+      white-space:nowrap;
+      width:1px;
+    }
+
+  .skip-link:focus{
+    background:hsl(0,0%,0%);
+    clip:auto;
+    clip-path:none;
+    color:hsl(50,100%,50%);
+    height:initial;
+    padding:1rem;
+    text-decoration:none;
+    width:initial;
+ }
+
+ .dviz-toggle-btn{
+  background:hsl(0, 0%, 100%);
+  border-color:currentColor;
+  border-width:.142857143em;
+  font-size:0.875rem;
+  font-weight: 500;
+  padding:.428571429em;
+  margin:.428571429em auto;
+ }
+
+ button[aria-pressed="false"]{
+   color:hsl(214, 73%, 43%);
+ }
+
+ button[aria-pressed="true"]{
+  color:hsl(353, 68%, 57%);
+ }
+
+ .toggle-buttons{
+   text-align:center;
+ }
+
+ .dataviz-section{
+   border:1px solid hsl(0,0%,70%);
+   margin:1rem auto;
+   padding:0 1rem 1rem;
+   text-align:center;
+   width:80%;
+ }
+
+ .dviz-title{
+   font-size:1.3125rem;
+   font-weight:bold;
+ }
+
+ #dv-option1{
+   fill:hsl(30,100%,50%);
+ }
+
+ #dv-option2{
+   fill:hsl(300,100%,30%);
+ }
+
+ #dv-option3{
+   fill:hsl(180,100%,30%);
+ }
+
+ .chart-key{
+   display:inline-flex;
+   font-size:0.875rem;
+   font-weight: bold;
+   list-style:none;
+   padding:0;
+   text-align: center;
+ }
+
+ .chart-key > li{
+   margin:0 0.5em;
+ }
+
+ code{
+   color:hsl(327, 100%, 30%);
+   font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+ }
+
+ samp{
+   background:hsl(60,100%,90%);
+   font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+ }
+
+ .caption-title{
+   display:inline-flex;
+   align-items:center;
+ }
+
+ .caption-title span{
+   font-size:inherit;
+ }
+
+ .dviz-title-separator{
+   margin-left:0.25em;
+ }
+
+  </style>
+</head>
+<body>
+  <main>
+
+    <h1>Demo card visualization accessibility work</h1>
+
+    <div aria-label="toggle data" class="toggle-buttons" role="group">
+
+      <button aria-controls="replacement-dataviz" aria-pressed="true" class="btn dviz-toggle-btn" type="button">
+        Option 1
+      </button>
+
+      <button aria-controls="replacement-dataviz" aria-pressed="false" class="btn dviz-toggle-btn" type="button">
+        Option 2
+      </button>
+
+      <button aria-controls="replacement-dataviz" aria-pressed="false" class="btn dviz-toggle-btn" type="button">
+        Option 3
+      </button>
+
+    </div>
+
+    <figure class="dataviz-section">
+      
+      <figcaption>
+        
+        <div class="caption-title dviz-title">
+          <h2 class="dviz-title" id="dataviz-heading">Portland Transit Ridership</h2><span class="dviz-title-separator"> - <span id="toggle-value">Option 1</span></span>
+        </div>
+        
+        <p>Average daily ridership for all TriMet bus and rail</p>
+
+        <ul aria-label="chart key" class="chart-key">
+          <li>
+            <svg aria-labelledby="key-option1" height="10" role="img" viewbox="0 0 10 10">
+              <use href="#dv-option1"></use>
+            </svg>
+            <span id="key-option1">Weekday</span>
+          </li>
+          <li>
+            <svg aria-labelledby="key-option2" height="10" role="img" viewbox="0 0 10 10">
+              <use href="#dv-option2"></use>
+            </svg>
+            <span id="key-option2">Saturday</span>
+          </li>
+          <li>
+            <svg aria-labelledby="key-option3" height="10" role="img" viewbox="0 0 10 10">
+              <use href="#dv-option3"></use>
+            </svg>            
+            <span id="key-option3">Sunday</span>
+          </li>
+        </ul>
+
+      </figcaption>
+
+      <div id="replacement-dataviz">
+
+          <svg aria-labelledby="dataviz-heading toggle-value" role="img">
+            <symbol id="dv-option1" viewbox="0 0 100 100">
+                <circle cx="50" cy="50" r="50"/>
+            </symbol>
+            <symbol id="dv-option2" viewbox="0 0 100 100">
+                <rect width="100" height="100" rx="25" />
+            </symbol>
+            <symbol id="dv-option3" viewbox="0 0 100 100">
+                <rect width="100" height="100" />
+            </symbol>
+            <use href="#dv-option1" id="change-symbol"></use>
+          </svg>
+
+        </div>
+
+    </figure>
+
+    <section>
+      <h2>What's going on in the code?</h2>
+
+      <p>There's a few things going on here. Let's start with the toggle buttons.</p>
+
+      <h3>Toggle buttons</h3>
+
+      <p>The toggle buttons have a <code class="language-markup">type="button"</code> attribute that tells the browser that it's a button that doesn't do anything by default (as opposed to a <code class="language-markup">submit</code> or a <code class="language-markup">reset</code> button).</p>
+
+      <p>The <code class="language-markup">aria-pressed</code> attribute is used to tell the browser and assistive technology that it's a toggle button and, depending on the attribute's value (either true or false), whether it's been pressed/selected or not. If you test this with a screen reader, you'll hear something like <samp>Option 1, selected, toggle button</samp>. Without the <code class="language-markup">aria-pressed</code> attribute, screen reader users will just hear <samp>Option 1, button</samp>. JavaScript is used to update the value of the <code class="language-markup">aria-pressed</code> attributes as the user clicks the buttons.</p>
+
+      <p>The <code class="language-markup">aria-controls</code> attribute tells assistive technology which element the button is controlling. It takes an <code class="language-markup">id</code> attribute, which makes sense to be the data viz chart. Some assistive technology will announce that information and provide a keyboard shortcut to allow the user to jump to the controlled element.</p>
+
+      <h3>Grouping and labelling</h3>
+
+      <p>There's quite a bit going on here, and we're going to start with the buttons again.</p>
+
+      <h4>Grouping and labelling buttons</h4>
+
+      <p>The buttons are contained in a <code class="language-markup">&lt;div&gt;</code> with <code class="language-markup">role="group"</code> and <code class="language-markup">aria-label</code> attributes. These provide structure and context for screen reader users. If you use a screen reader and navigate to the first button, you'll hear something like <samp>Option 1, selected, toggle button, toggle data, group</samp>.</p>
+
+      <h4>Heading structure</h4>
+
+      <p>I went back and forth on whether I wanted the heading for the chart (<i>Portland Transit Ridership</i>) to also contain the detail of the currently-displayed chart&mdash;in this example, the three Option values. In the end, I decided I didn't because I think that it's better to have a heading that doesn't change its content. By not changing the heading text, screen reader users will always hear <samp>Portland Transit Ridership</samp> and not one of three different headings.</p>
+
+      <h4>Grouping the chart</h4>
+
+      <p>The chart is contained in a <code class="language-markup">&lt;figure&gt;</code> element and the related descriptive content in a <code class="language-markup">&lt;figcaption&gt;</code> element. Semantically, the <a href="https://www.w3.org/TR/html52/grouping-content.html#the-figure-element"> <code class="language-markup">&lt;figure&gt;</code> and <code class="language-markup">&lt;figcaption&gt;</code> elements</a> are the correct elements for the job, although good accessibility support is currently (as of <time datetime="2019-08-05">5th August 2019</time>) <a href="https://www.scottohara.me/blog/2019/01/21/how-do-you-figure.html">a little lacking in some browser/screen reader combinations</a>.</p>
+
+      <h4>Labelling the chart</h4>
+
+      <p>The preferred way of labelling and describing <abbr title="Scalable Vector Graphics">SVGs</abbr> is by using the SVG <code class="language-markup">&lt;title&gt;</code> and <code class="language-markup">&lt;desc&gt;</code> elements. I had a look in the source code of the reference page and couldn't find those in the chart. I did notice that the original SVG contains this code: <code class="language-markup">aria-labelledby="victory-container-1-title victory-container-1-desc"</code>, but there weren't any corresponding <code class="language-markup">id</code> attributes with those values. Because I wasn't sure if this was because of a bug in the charting library, I used a different approach. I've used the same <code class="language-markup">aria-describedby</code> attribute, which can take one or more <code class="language-markup">id</code> attributes, and I've pointed them at two sections of the heading: the Portland Ridership part and the Option part. As the Option part gets updated with the user's interaction, the chart's label automatically picks up that change.</p>
+
+      <h4>Labelling the key</h4>
+
+      <p>For the chart's key, I used an unordered list to group and contain the contents. I added an <code class="language-markup">aria-label</code> attribute with a value of <code>chart key</code>, which gets announced by some screen readers. For example <samp>list, chart key, three items</samp>, or <samp>chart key, group</samp>. I'm not 100% sure that's the best label, so a little thought is probably in order.</p>
+
+      <p>I made sure the images in the key were labelled, although I think the labels could probably be improved. At the moment they're labelled with the related text&mdash;for example, the first image is labelled Weekday.</p>
+
+    </section>
+
+    <section>
+      <h2>To do</h2>
+
+      <ol>
+        <li>Improve the appearance of the real chart so it works better for people who are blind and color blind.</li>
+        <li>Tag navigation.</li>
+        <li>Twitter / Tweet quote button</li>
+        <li>"More" button.</li>
+        <li>"About this data" content.</li>
+      </ol>
+    </section>
+
+  </main>
+
+  <script>
+    (function(e){
+
+      function addEventListenerList(list, event, fn) {
+        for (let i=0, len = list.length; i < len; i++) {
+        list[i].addEventListener(event, fn, false);
+        }
+      }
+
+      const toggleBtns = document.querySelectorAll('.dviz-toggle-btn');
+      addEventListenerList(toggleBtns, 'click', toggleDViz);
+
+      function toggleDViz(e){
+        let elm = e.currentTarget;
+        let currentElm = document.querySelector('.dviz-toggle-btn[aria-pressed=true]');
+        let dataDescription = document.querySelector('#toggle-value');
+        let symbolToUse = document.querySelector('#change-symbol');
+        symbolToUse.setAttribute('href', elm.textContent.replace(/(Option)\s(\d)/,'#dv-$1$2').toLowerCase().trim());
+        currentElm.setAttribute('aria-pressed', 'false');
+        elm.setAttribute('aria-pressed', 'true');
+        dataDescription.textContent=elm.textContent;
+      }
+
+    }());
+  </script>
+
+</body>
+</html>
