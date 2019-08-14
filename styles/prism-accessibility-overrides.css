@@ -1,0 +1,11 @@
+.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted{
+  color:hsl(80,100%,24%);
+}
+
+.token.atrule, .token.attr-value, .token.keyword{
+  color:hsl(198,100%,32%);
+}
+
+.token.punctuation{
+  color:hsl(0,0%,43%);
+}
