@@ -9,3 +9,7 @@
 .token.punctuation{
   color:hsl(0,0%,43%);
 }
+
+.token.function, .token.class-name{
+  color:hsl(348,50%,50%);
+}
