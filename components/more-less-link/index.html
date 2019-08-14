@@ -187,11 +187,11 @@
 
       <h2>Marking up the link</h2>
 
-      <p>A critical part of making a link is accessible is to use the HTML <code class="language-markup">href</code> attribute. An <code class="language-markup">&lt;a&gt;</code> element without an <code class="language-markup">href</code> is valid HTML, but it&#8217;s not actually a link. The <a href="https://www.w3.org/TR/html52/textlevel-semantics.html#the-a-element">HTML spec for the <code class="language-markup">&lt;a&gt;</code> element</a> states <q>If the <code class="language-markup">&lt;a&gt;</code> element has no <code class="language-markup">href</code> attribute, then the element represents a placeholder for where a link might otherwise have been placed, if it had been relevant, consisting of just the element&#8217;s contents</q>. Crucially, a &#8220;placeholder&#8221; link isn&#8217;t keyboard accessible. If we add an <code class="language-markup">href</code> attribute and make the value that of the <code class="language-markup">id</code> attribute of our toggle-able container, we have valid HTML that&#8217;s also keyboard accessible.</p>
+      <p>A critical part of making a link is accessible is to use the HTML <code class="language-markup">href</code> attribute, which the current links don&#8217;t have. An <code class="language-markup">&lt;a&gt;</code> element without an <code class="language-markup">href</code> is valid HTML, but it&#8217;s not actually a link. The <a href="https://www.w3.org/TR/html52/textlevel-semantics.html#the-a-element">HTML spec for the <code class="language-markup">&lt;a&gt;</code> element</a> states <q>If the <code class="language-markup">&lt;a&gt;</code> element has no <code class="language-markup">href</code> attribute, then the element represents a placeholder for where a link might otherwise have been placed, if it had been relevant, consisting of just the element&#8217;s contents</q>. Crucially, a &#8220;placeholder&#8221; link isn&#8217;t keyboard accessible. If we add an <code class="language-markup">href</code> attribute and make the value that of the <code class="language-markup">id</code> attribute of our toggle-able container, we have valid HTML that&#8217;s also keyboard accessible.</p>
       
-      <h3>Visibly hidden text</h3>
+      <h3>Making the link text more useful with visibly-hidden text</h3>
 
-      <p>WCAG has two criteria that we need to conform to with our More/Less link:</p>
+      <p>Our link says &#8220;More&#8221; or &#8220;Less&#8221;, which might be okay for sighted, mouse-using, users who can see it next to its related content, but it&#8217;s less-than useful for other other users who might access the link differently. WCAG has two criteria that we need to conform to with our More/Less link:</p>
 
       <ol>
         <li><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-refs.html">Link Purpose (In Context)</a></li>
