@@ -125,6 +125,14 @@
  footer > address{
    display:inline;
  }
+
+ samp{
+   background:hsl(60,100%,95%);
+   border-radius:0.3em;
+   font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+   font-size:1em;
+   padding:0.1em;
+ }
   
   </style>
 </head>
@@ -201,7 +209,7 @@
       
       <h3>Making the link text more useful with visibly-hidden text</h3>
 
-      <p>Our link says &#8220;More&#8221; or &#8220;Less&#8221;, which might be okay for sighted, mouse-using, users who can see it next to its related content, but it&#8217;s less-than useful for other other users who might access the link differently. WCAG has two criteria that we need to conform to with our More/Less link:</p>
+      <p>Our link says &#8220;More&#8221; or &#8220;Less&#8221;, which might be okay for sighted, mouse-using, users who can see it next to its related content, but it&#8217;s less-than useful for other users who might access the link differently. WCAG has two criteria that we need to conform to with our More/Less link:</p>
 
       <ol>
         <li><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-refs.html">Link Purpose (In Context)</a></li>
@@ -210,7 +218,7 @@
 
       <h3>Link Purpose (In Context)</h3>
 
-      <p><cite>Link Purpose (In Context)</cite> basically requires links to make sense out of context of their surrounding content (for example, text in a sentence). The reasoning behind this is that some assistive technology users will access links without necessarily listening to the surrounding content. In the same way that sighted users scan a page for links instead of reading the entire page, screen reader users can pull up a list of all the links on a page. If there are multiple <i>Read More</i>, <i>Click Here</i>, <i>More</i>, etc., the user can&#8217;t get any useful information on what that link does or where it might go. People who use speech-dictation software (e.g., Dragon Naturally Speaking on Windows or Dictation on macOS) can speak commands such as <q>click explore civic</q>. If there are multiple identical links on a page, users have to go through extra steps to select the particular "click here" link they&#8217;re interested in.</p>
+      <p><cite>Link Purpose (In Context)</cite> basically requires links to make sense out of context of their surrounding content (for example, text in a sentence). The reasoning behind this is that some assistive technology users will access links without necessarily listening to the surrounding content. In a similar way that sighted users scan a page for links instead of reading the entire page, screen reader users can pull up a list of all the links on a page. If there are multiple <i>Read More</i>, <i>Click Here</i>, <i>More</i>, links, the user can&#8217;t does&#8217;t have useful information on what that link does or where it might go. People who use speech-dictation software (e.g., Dragon Naturally Speaking on Windows or Dictation on macOS) can speak commands such as <q>click explore civic</q>. If there are multiple identical links on a page, users have to go through extra steps to select the particular &#8220;click here&#8221; link they&#8217;re interested in.</p>
 
       <h3>Label In Name</h3>
 
@@ -218,9 +226,9 @@
 
       <p>The <cite>Label In Name</cite> criterion has a best practice, which is: <q>&hellip; to have the text of the label at the start of the name</q>. If you are going to override the accessible name, make sure the visible text is at the beginning of your override. For example: &#8220;Significant Structural Damage&mdash;More&#8221; wouldn&#8217;t be a good override.</p>
 
-      <p>To get what we want with our link, we need to use an accessible way of hiding extra content. CSS rules such as <code class="language-markup">display:none</code> or the HTML <code class="language-markup">hidden</code> hide content visibly and from assistive technology. We need to do something different, and are going to create a rule that uses <a href="https://getbootstrap.com/docs/4.3/getting-started/accessibility/">Bootstrap&#8217;s <code class="language-markup">sr-only</code> rule</a> (the sr stands for screen reader). This hides content so it&#8217;s still available to assistive technology, but can&#8217;t be seen. What we can do is to add some visually-hidden text that describes the content the user is going to get, for example &#8220;Significant Structural Damage&#8221;.</p>
+      <p>To keep the visual design of our link, but make it more descriptive, we need to use an accessible way of hiding extra content. CSS rules such as <code class="language-markup">display:none</code> or the HTML <code class="language-markup">hidden</code> attribute hide content visibly <em>and</em> from assistive technology. We need to do something different, and are going to create a rule that uses <a href="https://getbootstrap.com/docs/4.3/getting-started/accessibility/">Bootstrap&#8217;s <code class="language-markup">sr-only</code> rule</a> (the sr stands for screen reader). This hides content so it&#8217;s still available to assistive technology, but can&#8217;t be seen. What we can do is to add some visually-hidden text that describes the content the user is going to get, for example &#8220;Significant Structural Damage&#8221;.</p>
 
-      <p>The final thing we need to do is to make sure we hide the arrow from assistive technology. It&#8217;s a decorative element and wouldn&#8217;t make sense to be part of the link&#8217;s accessible name. We do this using <code class="language-markup">aria-hidden="true"</code>, which keeps the arrow visible on the screen but tells assistive technology to ignore it.</p>
+      <p>The final thing we need to do is to make sure we hide the arrow from assistive technology. It&#8217;s a decorative element and wouldn&#8217;t make sense to be part of the link&#8217;s accessible name (hearing something like <samp>&#8220;more about significant structural damage down arrow&#8221;</samp> would be odd). We do this using <code class="language-markup">aria-hidden="true"</code>, which keeps the arrow visible on the screen but tells assistive technology to ignore it.</p>
 
       <p>Here&#8217;s our link:</p>
 
