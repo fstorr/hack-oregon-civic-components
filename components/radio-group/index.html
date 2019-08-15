@@ -1,0 +1,64 @@
+
+<h2>Plain HTML</h2>
+<fieldset>
+  <legend>What's your favourite color?</legend>
+
+  <input type="radio" name="color1" id="color1-1">
+  <label for="color1-1">Red</label>
+  <input type="radio" name="color1" id="color1-2">
+  <label for="color1-2">Green</label>
+  <input type="radio" name="color1" id="color1-3">
+  <label for="color1-3">Blue</label>
+</fieldset>
+
+<h2>ARIA version</h2>
+
+<div aria-labelledby="least-fave" role="radiogroup">
+  <p id="least-fave">What's your least-favorite color</p>
+  <label>
+      <input type="radio" name="color2">
+      Puce
+  </label>
+  
+  <label>
+    <input type="radio" name="color2">
+    None More Black
+  </label>
+  
+  <label>
+    <input type="radio" name="color2">
+    Slime Green
+  </label>
+</div>
+
+<button aria-live="polite" id="tb1" aria-labelledby="btn-txt-1 exp" type="button"><span id="btn-txt-1">Yay buttn!</span></button>
+
+<button aria-expanded="false" id="tb2" type="button">Yay better button!</button>
+
+<div id="exp" hidden>expanded</div>
+<div id="clp" hidden>collapsed</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(e){
+
+  const btn = document.querySelector('#tb1');
+  const betterBtn = document.querySelector('#tb2');
+
+  btn.addEventListener('click', function(){
+
+    if(btn.getAttribute('aria-labelledby') === 'btn-txt-1 exp'){
+      btn.setAttribute('aria-labelledby', 'btn-txt-1 clp');
+    }
+    else{
+      btn.setAttribute('aria-labelledby', 'btn-txt-1 exp');
+    }
+  }, false);
+
+  betterBtn.addEventListener('click', function(){
+    betterBtn.setAttribute('aria-expanded', betterBtn.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+  }, false);
+
+});
+
+</script>
