@@ -185,6 +185,16 @@
 
       <p>We should also give the wrapping element an ARIA role of <code class="language-markup"><a href="https://www.w3.org/TR/wai-aria-1.1/#group">group</a></code>. The <code class="language-markup">group</code> role creates <q>a set of user interface objects which are not intended to be included in a page summary or table of contents by assistive technologies</q>, which is what we want for this element. By doing this, we provide a little more structure to our document.</p>
 
+      <p>This is the container for our toggle-able content:</p>
+ 
+      <pre class="language-markup">
+        <code>
+          &lt;div id=&quot;&hellip;&quot; role=&quot;group&quot; tabindex=&quot;-1&quot; hidden&gt;
+            &hellip;
+          &lt;/div&gt;
+        </code>
+      </pre>
+
       <h2>Marking up the link</h2>
 
       <p>A critical part of making a link is accessible is to use the HTML <code class="language-markup">href</code> attribute, which the current links don&#8217;t have. An <code class="language-markup">&lt;a&gt;</code> element without an <code class="language-markup">href</code> is valid HTML, but it&#8217;s not actually a link. The <a href="https://www.w3.org/TR/html52/textlevel-semantics.html#the-a-element">HTML spec for the <code class="language-markup">&lt;a&gt;</code> element</a> states <q>If the <code class="language-markup">&lt;a&gt;</code> element has no <code class="language-markup">href</code> attribute, then the element represents a placeholder for where a link might otherwise have been placed, if it had been relevant, consisting of just the element&#8217;s contents</q>. Crucially, a &#8220;placeholder&#8221; link isn&#8217;t keyboard accessible. If we add an <code class="language-markup">href</code> attribute and make the value that of the <code class="language-markup">id</code> attribute of our toggle-able container, we have valid HTML that&#8217;s also keyboard accessible.</p>
@@ -234,11 +244,7 @@
               &lt;span aria-hidden=&quot;true&quot;&gt;&amp;#8595;&lt;/span&gt;
             &lt;/a&gt;          
           </code>
-        </pre>      
-
-      <h2>Making sure the link doesn&#8217;t work when it shouldn&#8217;t</h2>
-
-      <p>The final thing we need to do is to make sure that we don&#8217;t send the user to the hidden content when they click the link to change it from <i>More</i> to <i>Less</i>. This is a simple bit of JavaScript&mdash;we simply use <code class="language-javascript">e.preventDefault();</code> on the link to stop it navigating to the target specified in the link&#8217;s <code class="language-markup">href</code> attribute. By doing this, the user stays where they are in the document and can continue to move down it in a standard manner.</p>
+        </pre>
 
       <h2>Making sure the link has a visible focus indicator</h2>
 
@@ -266,9 +272,11 @@
       let target = document.querySelector(elm.getAttribute('href'));
       let elmText = elm.querySelector('.read-more-less__text');
       let elmArrow = elm.querySelector('.read-more-less__arrow');
+      e.preventDefault();
 
       if(elm.classList.contains('more')){
         target.removeAttribute('hidden');
+        target.focus();
         elmText.textContent = "Less";
         elmArrow.innerHTML = '&#8593';
         elm.classList.remove('more');
@@ -276,7 +284,6 @@
       }
       else{
         // we don't want to link to the content that's about to be hidden. We need to keep the user's focus on the link they just clicked.
-        e.preventDefault();
         target.setAttribute('hidden', '');
         elmText.textContent = "More";
         elmArrow.innerHTML = '&#8595';
