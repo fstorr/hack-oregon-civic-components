@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="../../styles/styles.css" rel="stylesheet">
+  <title>More / Less content link</title>
+  <style>
+
+    :root{
+    font-size:100%;
+    box-sizing:border-box;
+    -moz-osx-font-smoothing:grayscale;      
+    -webkit-font-smoothing:antialiased;
+    --black:hsl(0,0%,0%);
+    --white:hsl(0,0%,100%);
+   }
+
+   @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior:smooth;
+    }
+  }
+
+    *, *::after, *::before{
+      box-sizing:inherit;
+    }
+
+    body{
+      background:var(--white);
+      color:var(--black);
+      display:grid;
+      font:1rem/1.5 sans-serif;
+      grid-template-columns:1fr minmax(20rem, 90ch) 1fr;
+    }
+
+    [contenteditable]:focus, [tabindex="0"]:focus, a[href]:focus, area[href]:focus, button:not([disabled]):focus, embed:focus, iframe:focus, input:not([disabled]):focus, object:focus, pre:focus, select:not([disabled]):focus, summary:focus, textarea:not([disabled]):focus{
+      outline:hsl(18,98%,50%) solid 2px;
+    }
+
+    main{
+      grid-column:2 / 3;
+      border:1px solid;
+      padding:1rem;
+    }
+
+    abbr{
+      cursor:help;
+      text-decoration: underline dotted;      
+    }
+
+    .btn{
+      background:hsl(0,0%,100%);
+      border:1px solid hsl(0,0%,50%);
+      border-radius:3px;
+      cursor:pointer;
+      font:inherit;
+      margin:0;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .hidden-visually {
+      clip:rect(0,0,0,0);
+      -webkit-clip-path:inset(50%);
+      clip-path:inset(50%);
+      height:1px;
+      overflow:hidden;
+      position:absolute;
+      white-space:nowrap;
+      width:1px;
+    }
+
+  .skip-link:focus{
+    background:hsl(0,0%,0%);
+    clip:auto;
+    clip-path:none;
+    color:hsl(50,100%,50%);
+    height:initial;
+    padding:1rem;
+    text-decoration:none;
+    width:initial;
+ }
+
+ .example{
+  border-bottom:3px solid darkblue;
+  border-top:3px solid darkblue;
+ }
+
+ .centered--h{
+   display:flex;
+   justify-content:center;
+ }
+
+ .toggle-more-container:focus{
+   outline:none
+ }
+
+ .read-more-less{
+   border-color:transparent;
+   color:hsl(214,73%,43%);
+   flex-direction:column;
+   font-weight:bold;
+   line-height:1.15;
+   padding:0.5em 1em;
+   text-align:center;
+   text-decoration:none;
+ }
+
+ .read-more-less__arrow{
+   display:block;
+   font-size:0.875rem;
+ }
+
+ footer{
+   background:hsl(0,0%,90%);
+   grid-column:2/3;
+   margin-top:1rem;
+   padding:1rem;
+ }
+
+ footer > address{
+   display:inline;
+ }
+
+ samp{
+   background:hsl(60,100%,95%);
+   border-radius:0.3em;
+   font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+   font-size:1em;
+   padding:0.1em;
+ }
+  
+  </style>
+</head>
+<body>
+  <main>
+    <h1>More / Less content link</h1>
+
+    <p>Improving the accessibility of the More/Less link. The example content is taken from an existing Civic component.</p>
+
+    <section aria-label="example content" class="example">
+
+      <h2 id="sig-struct-dam-heading">Significant Structural Damage</h2>
+     
+      <p>Portland&#8217;s bridges are essential for transporting people, goods, and services across the Willamette River every day. Of Portland&#8217;s 12 bridges, only the Tillikum and Sellwood Bridges are expected to be safe and usable after a Cascadia quake. A retrofitted Burnside Bridge could provide an essential lifeline for rescue and recovery for Portland. This <a href="https://youtu.be/sn98JkN5HXc">video simulation</a> shows a simulated collapse of the Burnside Bridge based on its&#8217; current structural condition.</p>
+
+      <div class="toggle-more-container" id="sig-struct-dam-heading--more" role="group" tabindex="-1" hidden>
+        <p>The <a href="https://www.flypdx.com/">Portland Airport</a> is located in an area which will be significantly impacted by shaking and liquefaction, so airport runways are likely to be highly deformed and unusable after a Cascadia quake. The airport does not currently have a plan to restore operations quickly after an earthquake, which will make it difficult to deliver needed people and resources to the region.</p>
+    
+        <p>Between the Fremont Bridge and Sauvie Island is Oregon&#8217;s &#8220;Critical Energy Infrastructure&#8221;, containing most of Oregon&#8217;s facilities for receiving, storing, transporting liquid fuel and natural gas. Although these facilities are built on land at very high risk for liquefaction and landslides, few structures have been retrofitted to meet current building standards. Most of this infrastructure will not be functional after a Cascadia quake, which means that a state or region-wide fuel shortage is a real possibility.</p>
+      </div>
+
+      <div class="centered--h">
+        <a aria-live="polite" class="read-more-less more" href="#sig-struct-dam-heading--more">
+          <span class="read-more-less__text">More</span><span class="hidden-visually"> about Significant Structural Damage</span>
+          <span aria-hidden="true" class="read-more-less__arrow">&#8595;</span>
+        </a>
+      </div>
+
+      <p>Here&#8217;s some more content <a href="https://example.com">with a link to take focus for testing</a>.</p>
+    </section>
+
+
+    <section aria-labelledby="whats-going-on">
+
+      <h2 id="whats-going-on">What&#8217;s going on in the code?</h2>
+
+      <p>There&#8217;s a few things happening here. Most are related to the <a href="https://www.w3.org/WAI/WCAG21/Understanding/meaningful-sequence.html"> <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.1 Meaningful Sequence criterion</a>, which states <q>When the sequence in which content is presented affects its meaning, a correct reading sequence can be programmatically determined</q>. In other words, if you present content in a non-standard order, you need to add code to allow users to read it in the correct order. With the design of this More/Less widget, we are presenting content in a non-standard order:</p>
+
+      <ol>
+        <li>The user reads a paragraph;</li>
+        <li>They get to the &#8220;More&#8221; link;</li>
+        <li>They click the &#8220;More&#8221; link;</li>
+        <li>Content appears above the &#8220;More&#8221; button rather than below it. The reader has to go back up the page to start reading, which is a non-standard order.</li>
+      </ol>
+
+      <p>For sighted users, the appearance of text is hopefully clear. For those who can&#8217;t see, they would have to guess something had happened and then &#8220;feel&#8221; their way around the page until they found the newly-visible content. That&#8217;s obviously not a good user experience.</p>
+
+      <h3>Moving users to the beginning of the new content</h3>
+
+      <p>Keyboard and assistive technology users need to have the browser&#8217;s focus moved to the beginning on the newly-visible content. Doing this will allow keyboard users to move through interactive content (links, buttons, etc.) without having to move backwards, and it will get screen readers to start announcing the content the user is interested in.</p>
+
+      <p>To move focus to the beginning of the content, we need to:</p>
+
+      <ul>
+        <li>Add a <code class="language-markup">tabindex="-1"</code> attribute onto the element that contains the content. <code class="language-markup">tabindex="-1"</code> allows an element to be programmatically focused, i.e., it can&#8217;t get focussed on by manually tabbing through a page with the keyboard, but it can focused with, for example, JavaScript.</li>
+        <li>Add <code class="language-markup">id</code> attribute to the element that contains the content so that we can target, and move focus, to it.</li>
+      </ul>
+
+      <p>We should also give the wrapping element an ARIA role of <code class="language-markup"><a href="https://www.w3.org/TR/wai-aria-1.1/#group">group</a></code>. The <code class="language-markup">group</code> role creates <q>a set of user interface objects which are not intended to be included in a page summary or table of contents by assistive technologies</q>, which is what we want for this element. By doing this, we provide a little more structure to our document.</p>
+
+      <p>This is the container for our toggle-able content:</p>
+ 
+      <pre class="language-markup">
+        <code>
+          &lt;div id=&quot;&hellip;&quot; role=&quot;group&quot; tabindex=&quot;-1&quot; hidden&gt;
+            &hellip;
+          &lt;/div&gt;
+        </code>
+      </pre>
+
+      <h2>Marking up the link</h2>
+
+      <p>A critical part of making a link is accessible is to use the HTML <code class="language-markup">href</code> attribute, which the current links don&#8217;t have. An <code class="language-markup">&lt;a&gt;</code> element without an <code class="language-markup">href</code> is valid HTML, but it&#8217;s not actually a link. The <a href="https://www.w3.org/TR/html52/textlevel-semantics.html#the-a-element">HTML spec for the <code class="language-markup">&lt;a&gt;</code> element</a> states <q>If the <code class="language-markup">&lt;a&gt;</code> element has no <code class="language-markup">href</code> attribute, then the element represents a placeholder for where a link might otherwise have been placed, if it had been relevant, consisting of just the element&#8217;s contents</q>. Crucially, a &#8220;placeholder&#8221; link isn&#8217;t keyboard accessible. If we add an <code class="language-markup">href</code> attribute and make the value that of the <code class="language-markup">id</code> attribute of our toggle-able container, we have valid HTML that&#8217;s also keyboard accessible.</p>
+      
+      <h3>Making the link text more useful with visibly-hidden text</h3>
+
+      <p>Our link says &#8220;More&#8221; or &#8220;Less&#8221;, which might be okay for sighted, mouse-using, users who can see it next to its related content, but it&#8217;s less-than useful for other users who might access the link differently. WCAG has two criteria that we need to conform to with our More/Less link:</p>
+
+      <ol>
+        <li><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-refs.html">Link Purpose (In Context)</a></li>
+        <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/label-in-name">Label In Name</a></li>
+      </ol>
+
+      <h3>Link Purpose (In Context)</h3>
+
+      <p><cite>Link Purpose (In Context)</cite> basically requires links to make sense out of context of their surrounding content (for example, text in a sentence). The reasoning behind this is that some assistive technology users will access links without necessarily listening to the surrounding content. In a similar way that sighted users scan a page for links instead of reading the entire page, screen reader users can pull up a list of all the links on a page. If there are multiple <i>Read More</i>, <i>Click Here</i>, <i>More</i>, links, the user can&#8217;t does&#8217;t have useful information on what that link does or where it might go. People who use speech-dictation software (e.g., Dragon Naturally Speaking on Windows or Dictation on macOS) can speak commands such as <q>click explore civic</q>. If there are multiple identical links on a page, users have to go through extra steps to select the particular &#8220;click here&#8221; link they&#8217;re interested in.</p>
+
+      <h3>Label In Name</h3>
+
+      <p><cite>Label In Name</cite> requires, for elements like form elements, links, and buttons, that element&#8217;s name contain the visible text. The idea behind this is to stop issues similar to this: <code class="language-markup">&lt;a aria-label="scroll to top" href="#banner"&gt;Go back to the start&lt;/a&gt;</code>. In this example, the <code class="language-markup">aria-label</code> attribute overrides the visible text, making the link&#8217;s accessible name <i>scroll to the top</i>. Speech-dictation users wouldn&#8217;t be able to &#8220;click&#8221; the link by saying <i>click go back to the start</i>, because that&#8217;s not what the link&#8217;s name is. As the <code class="language-markup">aria-label</code> attribute is invisible to them, they&#8217;re not going to know what&#8217;s wrong.</p>
+
+      <p>The <cite>Label In Name</cite> criterion has a best practice, which is: <q>&hellip; to have the text of the label at the start of the name</q>. If you are going to override the accessible name, make sure the visible text is at the beginning of your override. For example: &#8220;Significant Structural Damage&mdash;More&#8221; wouldn&#8217;t be a good override.</p>
+
+      <p>To keep the visual design of our link, but make it more descriptive, we need to use an accessible way of hiding extra content. CSS rules such as <code class="language-markup">display:none</code> or the HTML <code class="language-markup">hidden</code> attribute hide content visibly <em>and</em> from assistive technology. We need to do something different, and are going to create a rule that uses <a href="https://getbootstrap.com/docs/4.3/getting-started/accessibility/">Bootstrap&#8217;s <code class="language-markup">sr-only</code> rule</a> (the sr stands for screen reader). This hides content so it&#8217;s still available to assistive technology, but can&#8217;t be seen. What we can do is to add some visually-hidden text that describes the content the user is going to get, for example &#8220;Significant Structural Damage&#8221;.</p>
+
+      <p>The final thing we need to do is to make sure we hide the arrow from assistive technology. It&#8217;s a decorative element and wouldn&#8217;t make sense to be part of the link&#8217;s accessible name (hearing something like <samp>&#8220;more about significant structural damage down arrow&#8221;</samp> would be odd). We do this using <code class="language-markup">aria-hidden="true"</code>, which keeps the arrow visible on the screen but tells assistive technology to ignore it.</p>
+
+      <p>Here&#8217;s our link:</p>
+
+      <pre class="language-markup">
+        <code>
+            &lt;a href=&quot;#&hellip;&quot;&gt;
+            &lt;span&gt;More&lt;/span&gt;&lt;span class=&quot;hidden-visually&quot;&gt; about Significant Structural Damage&lt;/span&gt;
+            &lt;span aria-hidden=&quot;true&quot;&gt;&amp;#8595;&lt;/span&gt;
+          &lt;/a&gt;          
+        </code>
+      </pre>
+
+      <h3>Announcing the change in link text</h3>
+
+      <p>To improve the user experience for blind users, we should tell them straight away when the link text changes. If we didn&#8217;t do that, and a user clicked the link to change it from <i>More</i> to <i>Less</i>, they wouldn&#8217;t know anything had happened without tabbing off the link and back onto it again. We can fix that with the <code class="language-markup">aria-live</code> attribute, which we&#8217;ll set to <code class="language-markup">polite</code>. The <code class="language-markup">polite</code> setting doesn&#8217;t interrupt any other screen reader announcements that might be happening, which is fine for this component; it&#8217;s not urgent that the user knows the text has changed. Here&#8217;s our final markup:</p>
+
+      <pre class="language-markup">
+          <code>
+              &lt;a aria-live=&quot;polite&quot; href=&quot;#&hellip;&quot;&gt;
+              &lt;span&gt;More&lt;/span&gt;&lt;span class=&quot;hidden-visually&quot;&gt; about Significant Structural Damage&lt;/span&gt;
+              &lt;span aria-hidden=&quot;true&quot;&gt;&amp;#8595;&lt;/span&gt;
+            &lt;/a&gt;          
+          </code>
+        </pre>
+
+      <h2>Making sure the link has a visible focus indicator</h2>
+
+      <p>WCAG&#8217;s <cite><a href="https://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html">Focus Visible criterion</a></cite> requires that links have some sort of visible focus indicator to show when they have focus. Focus indicators are crucial for keyboard users&mdash;they're the equivalent of a mouse-user&#8217;s pointer. In the same way that we&#8217;d never hide a user&#8217;s mouse pointer, we should never hide a focus indicator.</p>
+      
+      <p>Browser&#8217;s defaults for focus styling aren&#8217;t particularly attractive (e.g. Chrome&#8217;s fuzzy-blue outline) and sometimes are hard to see (e.g. Firefox&#8217;s small dotted border). We can improve on these by supplying our own focus styling using the CSS <code class="language-css">outline</code> rule. When we do this, we need to ensure it has a color contrast of at least 3:1 against its adjacent background color, which in this case is the page&#8217;s white background. This conforms to WCAG&#8217;s <cite><a href="https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html">Non-Text Contrast criterion</a></cite>. I&#8217;ve used an orange color that has a contrast of 3.4:1. I&#8217;m also using the <a href="https://github.com/WICG/focus-visible">Focus Visible polyfill</a> so that the focus outline only appears for keyboard users.</p>
+
+    </section>
+
+  </main>
+
+  <footer>
+    Questions? Contact <address role="presentation"><a href="mailto:francis.storr@hackoregon.org">Francis Storr</a></address>
+  </footer>
+
+  <script>
+  
+  (function(){
+
+    let morelessLink = document.querySelector('.read-more-less');
+
+    morelessLink.addEventListener('click', function(e){
+      
+      let elm = e.currentTarget;
+      let target = document.querySelector(elm.getAttribute('href'));
+      let elmText = elm.querySelector('.read-more-less__text');
+      let elmArrow = elm.querySelector('.read-more-less__arrow');
+      e.preventDefault();
+
+      if(elm.classList.contains('more')){
+        target.removeAttribute('hidden');
+        target.focus();
+        elmText.textContent = "Less";
+        elmArrow.innerHTML = '&#8593';
+        elm.classList.remove('more');
+        elm.classList.add('less');
+      }
+      else{
+        // we don't want to link to the content that's about to be hidden. We need to keep the user's focus on the link they just clicked.
+        target.setAttribute('hidden', '');
+        elmText.textContent = "More";
+        elmArrow.innerHTML = '&#8595';
+        elm.classList.add('more');
+        elm.classList.remove('less');
+      }
+
+    }, false);
+
+  })();
+  
+  </script>
+  <script src="../../scripts/focus-visible.js"></script>
+  <script src="../../scripts/prism.js"></script>
+</body>
+</html>
