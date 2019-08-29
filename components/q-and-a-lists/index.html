@@ -118,6 +118,14 @@
    margin-left:1.33rem;
    padding-left:0.66em;
  }
+
+ samp{
+   background:hsl(60,100%,95%);
+   border-radius:0.3em;
+   font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+   font-size:1em;
+   padding:0.1em;
+ }
   
   </style>
 </head>
@@ -129,9 +137,9 @@
 
     <section aria-label="example content" class="example">
 
-      <h3>Dataset Name and History</h3>
+      <h3 id="dsnah">Dataset Name and History</h3>
 
-      <dl class="data-q-and-a">
+      <dl aria-labelledby="dsnah" class="data-q-and-a">
         <dt>What is the full dataset name?</dt>
         <dd>TOAD (Transit Operations Analytics Data)</dd>
         <dt>What was the original purpose of this dataset?</dt>
@@ -178,6 +186,20 @@
         <li>The <code class="language-markup">&lt;dt&gt;</code> is used for the question, and the <code class="language-markup">&lt;dd&gt;</code> for the answers. Note that there can be multiple <code class="language-markup">&lt;dd&gt;</code> elements per <code class="language-markup">&lt;dt&gt;</code>.</li>
         <li>The other interesting difference with the definition list element is that <code class="language-markup">&lt;div&gt;</code>s are allowed as direct children of the <code class="language-markup">&lt;dl&gt;</code> element, which can be useful for styling and scripting. This isn't possible with ordered or unordered lists.</li>
       </ul>
+
+      <p>Defintion lists can, like the other list types, be labelled with either <code class="language-markup">aria-labelledby</code> or <code class="language-markup">aria-label</code>. If we do this, it can give a little more information to screen reader users as to the list's subject matter. For example:</p>
+
+      <pre>
+        <code class="language-markup">
+          &lt;h3 id=&quot;dsnah&quot;&gt;Dataset Name and History&lt;/h3&gt;
+
+          &lt;dl aria-labelledby=&quot;dsnah&quot;&gt;
+            &hellip;
+          &lt;dl/&gt;
+        </code>
+      </pre>
+
+      <p>Using <code class="language-markup">aria-labelledby</code> to point at the parent heading element, screen-reader users will hear something similar to <samp>description list Dataset Name and History 9 items</samp>.</p>
 
       <h2>Considerations for the existing design</h2>
 
