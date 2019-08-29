@@ -187,6 +187,8 @@
         <li>The other interesting difference with the definition list element is that <code class="language-markup">&lt;div&gt;</code>s are allowed as direct children of the <code class="language-markup">&lt;dl&gt;</code> element, which can be useful for styling and scripting. This isn't possible with ordered or unordered lists.</li>
       </ul>
 
+      <h4>Labelling the list</h4>
+
       <p>Defintion lists can, like the other list types, be labelled with either <code class="language-markup">aria-labelledby</code> or <code class="language-markup">aria-label</code>. If we do this, it can give a little more information to screen reader users as to the list's subject matter. For example:</p>
 
       <pre>
@@ -195,7 +197,7 @@
 
           &lt;dl aria-labelledby=&quot;dsnah&quot;&gt;
             &hellip;
-          &lt;dl/&gt;
+          &lt;/dl&gt;
         </code>
       </pre>
 
