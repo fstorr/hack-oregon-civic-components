@@ -5,6 +5,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Demo Card Visualization</title>
+  <link rel="stylesheet" href="../styles/styles.css">
   <style>
 
     :root{
@@ -141,11 +142,6 @@
    margin:0 0.5em;
  }
 
- code{
-   color:hsl(327, 100%, 30%);
-   font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
- }
-
  samp{
    background:hsl(60,100%,90%);
    font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
@@ -162,6 +158,47 @@
 
  .dviz-title-separator{
    margin-left:0.25em;
+ }
+
+ .data-q-and-a dt{
+  font-weight:bold;
+ }
+
+ .data-q-and-a dd{
+  margin-left:0;
+  margin-bottom:.75em;
+ }
+
+ .centered--h{
+   display:flex;
+   justify-content:center;
+ }
+
+ .toggle-more-container:focus{
+   outline:none
+ }
+
+ .read-more-less{
+   border-color:transparent;
+   color:hsl(214,73%,43%);
+   flex-direction:column;
+   font-weight:bold;
+   line-height:1.15;
+   padding:0.5em 1em;
+   text-align:center;
+   text-decoration:none;
+ }
+
+ .read-more-less__arrow{
+   display:block;
+   font-size:0.875rem;
+ }
+
+ .border-end::after{
+   content:'';
+   border-bottom:1px inset hsl(0,0%,60%);
+   display:block;
+   margin:0.75rem;
  }
 
   </style>
@@ -239,7 +276,69 @@
 
     </figure>
 
+    <h2>About this data</h2>
+
+    <div role="note">
+      <p>Note: This dataset documentation is for demonstration purposes only and is not peer-reviewed.</p>
+    </div>
+
+    <section class="border-end">
+
+      <h3>Dataset Name and History</h3>
+
+      <dl class="data-q-and-a">
+        <dt>What is the full dataset name?</dt>
+        <dd>TOAD (Transit Operations Analytics Data)</dd>
+        <dt>What was the original purpose of this dataset?</dt>
+        <dd>Tracking transit ridership and operations for reporting purposes</dd>
+        <dt>How was this dataset originally used? Be specific, and address impact.</dt>
+        <dd>TriMet produces ridership statistics at regular, 3-month intervals with this data</dd>
+        <dt>What funding is dependent on the results of this dataset?</dt>
+        <dd>TriMet's operating budget</dd>
+        <dt>What analysis was initially performed on this dataset?</dt>
+        <dd>Possibly one-off analyses, but data is mostly raw</dd>
+        <dt>What organization funded the creation or maintenance of this dataset?</dt>
+        <dd>TriMet/Metro</dd>
+        <dt>What type of legal entity is the funding organization?</dt>
+        <dd>Government Agency</dd>
+        <dt>How is the funding organization funded? If a corporation, what is their business model?</dt>
+        <dd>State/local/regional budget allocations</dd>
+        <dt>Do any other organizations fund the creation or maintenance of this dataset?</dt>
+        <dd>No</dd>
+      </dl>
+
+      <div class="toggle-more-container" id="dataset-name-and-history--more" role="group" tabindex="-1" hidden>
+        
+        <h3>Dataset Use</h3>
+        
+        <dl class="q-and-a">
+          <dt>What is this dataset primarily used for?</dt>
+          <dd>Producing ridership statistics at 3-month intervals</dd>
+          <dt>What shouldn't this dataset be used for?</dt>
+          <dd>Undermining transit agencies</dd>
+          <dt>Is this dataset used for any additional purposes?</dt>
+          <dd>Yes</dd>
+          <dt>What is this dataset additionally used for?</dt>
+          <dd>Occasional one-off analyses, regarding delays &amp; other service-impacting events</dd>
+          <dt>Is this dataset used for any additional purposes?</dt>
+          <dd>Yes</dd>
+          <dt>What is this dataset additionally used for?</dt>
+          <dd>Supplementing GTFS real-time data feed</dd>
+        </dl>
+
+      </div> <!-- end more/less group -->
+
+      <div class="centered--h">
+        <a aria-live="polite" class="read-more-less more" href="#dataset-name-and-history--more">
+          <span class="read-more-less__text">More</span><span class="hidden-visually"> about Significant Structural Damage</span>
+          <span aria-hidden="true" class="read-more-less__arrow">&#8595;</span>
+        </a>
+      </div>
+
+    </section>
+
     <section>
+
       <h2>What's going on in the code?</h2>
 
       <p>There's a few things going on here. Let's start with the toggle buttons.</p>
@@ -318,8 +417,39 @@
         dataDescription.textContent=elm.textContent;
       }
 
+      let morelessLink = document.querySelector('.read-more-less');
+
+      morelessLink.addEventListener('click', function(e){
+        
+        let elm = e.currentTarget;
+        let target = document.querySelector(elm.getAttribute('href'));
+        let elmText = elm.querySelector('.read-more-less__text');
+        let elmArrow = elm.querySelector('.read-more-less__arrow');
+        e.preventDefault();
+
+        if(elm.classList.contains('more')){
+          target.removeAttribute('hidden');
+          target.focus();
+          elmText.textContent = "Less";
+          elmArrow.innerHTML = '&#8593';
+          elm.classList.remove('more');
+          elm.classList.add('less');
+        }
+        else{
+          target.setAttribute('hidden', '');
+          elmText.textContent = "More";
+          elmArrow.innerHTML = '&#8595';
+          elm.classList.add('more');
+          elm.classList.remove('less');
+        }
+
+      }, false);
+
     }());
   </script>
+
+  <script src="../scripts/focus-visible.js"></script>
+  <script src="../scripts/prism.js"></script>
 
 </body>
 </html>
