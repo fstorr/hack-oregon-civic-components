@@ -1,0 +1,51 @@
+.c-tag-nav{
+  border-bottom:1px solid hsl(109,0%,60%);
+  border-top:1px solid hsl(109,0%,60%);
+  margin:1rem 0;
+}
+
+.c-tag-nav__list{
+  flex-wrap:wrap;
+  line-height:2.75;
+  margin:0.45rem 0;
+}
+
+a[class^=tag--]{
+  /* adding a 1px solid transparent border makes this look more clickable in Windows high-contrast mode. */
+  border:1px solid transparent;
+  border-radius:1em;
+  color:var(--white);
+  font-weight:bold;
+  padding:0.33em 2em;
+  margin:0.5em;
+  text-decoration:none;
+}
+
+a[class^=tag--]:focus{
+  box-shadow: 0 0 0 2px hsl(18,88%,50%);
+  /* needed for Windows high-contrast mode */
+  outline:2px solid transparent;
+}
+
+.tag--transportation{
+  background:var(--transportation);
+}
+
+.tag--housing{
+  background:var(--housing);
+}
+
+.tag--gentrification{
+  background:var(--gentrification);
+}
+
+.tag--transit{
+  background:var(--transit);
+}
+
+.tag--portland{
+  background:var(--portland);
+}
+.tag--demo{
+  background:var(--demo);
+}

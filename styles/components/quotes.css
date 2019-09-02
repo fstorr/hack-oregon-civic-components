@@ -1,0 +1,23 @@
+blockquote{
+  border-left:0.33em solid hsl(0,0%,80%);
+  border-bottom-left-radius:5px;
+  border-top-left-radius:5px;
+  margin-left:1.33rem;
+  padding-left:0.66em;
+}
+
+blockquote p:first-of-type::before{
+  content:open-quote;
+}
+
+blockquote p:last-of-type::after{
+  content:close-quote;
+}
+
+blockquote p:last-of-type{
+  margin-bottom:0.5em;
+}
+
+blockquote cite{
+  font-size:0.875rem;
+}
