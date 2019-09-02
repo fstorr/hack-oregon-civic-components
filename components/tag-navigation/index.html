@@ -249,7 +249,7 @@
     
       <h2 id="whats-going-on">What&#8217;s going on in the code?</h2>
 
-      <p>This one's relatively simple. We'll start by changing the elements that the tags are contained in.</p>
+      <p>This one&#8217;s relatively simple. We&#8217;ll start by changing the elements that the tags are contained in.</p>
 
       <h3>The <code class="language-markup">&lt;nav&gt;</code> element</h3>
         
@@ -262,7 +262,7 @@
         </footer>
       </blockquote>
 
-      <p>The <code class="language-markup">&lt;nav&gt;</code> element creates a <a href="https://www.w3.org/TR/wai-aria-practices/examples/landmarks/index.html">landmark area</a> that can help screen-reader users identify and quickly move to. Without any extra labelling, a screen reader will announce a <code class="language-markup">&lt;nav&gt;</code> element as <samp>navigation</samp>. This is okay if a page only has one block of navigation, but isn't helpful where there are multiple blocks. Hearing <samp>navigation, navigation, navigation</samp> doesn't make wayfinding easy. We can fix this with an <code class="language-markup">aria-label</code> element, which in this example is <code class="language-markup">aria-label="tags"</code>. We don't want to say "tags navigation" because a screen reader would announce <samp>tags navigation navigation</samp>.</p>
+      <p>The <code class="language-markup">&lt;nav&gt;</code> element creates a <a href="https://www.w3.org/TR/wai-aria-practices/examples/landmarks/index.html">landmark area</a> that can help screen-reader users identify and quickly move to. Without any extra labelling, a screen reader will announce a <code class="language-markup">&lt;nav&gt;</code> element as <samp>navigation</samp>. This is okay if a page only has one block of navigation, but isn&#8217;t helpful where there are multiple blocks. Hearing something like <samp>navigation, navigation, navigation</samp> doesn&#8217;t make wayfinding easy. We can fix this with an <code class="language-markup">aria-label</code> attribute, which in this example is <code class="language-markup">aria-label="tags"</code>. We don&#8217;t want to say &#8220;tags navigation&#8221; because a screen reader would announce <samp>tags navigation navigation</samp>.</p>
 
       <h3>Grouping the tags using a list</h3>
 
@@ -275,11 +275,11 @@
         </footer>
       </blockquote>
 
-      <p>There's no set order for the list items, so we can use an unordered list (<code class="language-markup">&lt;ul&gt;</code>) element.</p>
+      <p>When a screen reader first encounters a list, it will tell the user that it's a list, how many items are in it, and the list's name if it has one. This helpful information doesn&#8217;t exist with a series of non-semantic <code class="language-markup">&lt;span&gt;</code>s or <code class="language-markup">&lt;div&gt;</code>s. There doesn&#8217;t appear to be an critical order for the list items, so we can use an unordered list (<code class="language-markup">&lt;ul&gt;</code>) element to group our tags.</p>
 
       <h3>Making the tags accessible to keyboard and assistive technology users</h3>
 
-      <p>The current site uses <code class="language-markup">&lt;span&gt;</code> elements with JavaScript event listeners to create clickable tags. The problem with this is that <code class="language-markup">&lt;span&gt;</code> elements have no semantics, they're just inline containers that are handy for things like styling. Keyboard users can't tab to them and assistive technology users won't be able to discover or interact with them as links. Essentially, someone can only use the tags if they can see and use a mouse or other <a href="http://www.continuetolearn.uiowa.edu/nas1/07c187/Module%204/module_4_p3.html">pointing device</a>. The easy solution for this is to change the <code class="language-markup">&lt;span&gt;</code> elements into <code class="language-markup">&lt;a&gt;</code> elements, not forgetting that they must have an <code class="language-markup">href</code> attribute to key keyboard accessible and findable by assistive technology.</p>
+      <p>The current site uses <code class="language-markup">&lt;span&gt;</code> elements with JavaScript event listeners to create clickable tags. The problem with this is that <code class="language-markup">&lt;span&gt;</code> elements have no semantics, they&#8217;re just inline containers that are handy for things like styling. Keyboard users can&#8217;t tab to them and assistive technology users won&#8217;t be able to discover or interact with them as links. Essentially, someone can only use the tags if they can see and use a mouse or other <a href="http://www.continuetolearn.uiowa.edu/nas1/07c187/Module%204/module_4_p3.html">pointing device</a>. The easy solution for this is to change the <code class="language-markup">&lt;span&gt;</code> elements into <code class="language-markup">&lt;a&gt;</code> elements, not forgetting that they must have an <code class="language-markup">href</code> attribute to key keyboard accessible and findable by assistive technology.</p>
 
       <p>The final HTML for our tags navigation block looks like this:</p>
 
@@ -316,18 +316,18 @@
 
 <ul>
   <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html">Success criterion 2.4.7</a>, <cite>Focus Visible</cite>, requires a visible focus indicator for anything that can be operated with a keyboard, which includes links.</li>
-  <li>The related <a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F78"><cite>Failure Of Success Criterion 2.4.7</cite></a> guidance comes into play because of the way we're going to style our focus indicator.</li>
+  <li>The related <a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F78"><cite>Failure Of Success Criterion 2.4.7</cite></a> guidance comes into play because of the way we&#8217;re going to style our focus indicator.</li>
   <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html">Success criterion 1.4.11</a>, <cite>Non-Text Contrast</cite></a>, requires a focus indicator has a contrast of at least 3:1 against its adjacent color.</li>
   <li><a href="https://www.w3.org/WAI/WCAG21/Techniques/general/G195"><cite>Using an author-supplied, highly-visible focus indicator</cite></a>.</li>
 </ul>
 
-<p>The usual way to add focus highlighting to an element is to use CSS to apply an <code class="language-css">outline</code>. This creates a rectangular border around the element. Because our tags have rounded edges, a rectangle doesn't look attractive. Unfortunately, the styling options for <code class="language-css">outline</code> are limited, and it's not possible to add a <code class="language-css">border-radius</code>. What we can do is to use a CSS <code class="language-css">box-shadow</code> to create a rounded border around the links when they're focused on. Like the <code class="language-css">outline</code> rule, and unlike the <code class="language-markup">border</code> rule, <code class="language-css">box-shadow</code> isn't part of the <a href="https://www.w3schools.com/css/css_boxmodel.asp">CSS box model</a>, so doesn't cause the size of the links to grow and shrink as the user interacts with them.</p>
+<p>The usual way to add focus highlighting to an element is to use CSS to apply an <code class="language-css">outline</code>. This creates a rectangular border around the element. Because our tags have rounded edges, a rectangle doesn&#8217;t look attractive. Unfortunately, the styling options for <code class="language-css">outline</code> are limited, and it&#8217;s not possible to add a <code class="language-css">border-radius</code>. What we can do is to use a CSS <code class="language-css">box-shadow</code> to create a rounded border around the links when they&#8217;re focused on. Like the <code class="language-css">outline</code> rule, and unlike the <code class="language-markup">border</code> rule, <code class="language-css">box-shadow</code> isn&#8217;t part of the <a href="https://www.w3schools.com/css/css_boxmodel.asp">CSS box model</a>, so doesn&#8217;t cause the size of the links to grow and shrink as the user interacts with them.</p>
 
-<p>To conform with WCAG 1.4.11, <cite>Non-Text Contrast</cite>, the focus ring needs to have a contrast of at least 3:1 against its adjacent "exterior" color, which is <code class="language-css">#fffefe</code>. I picked a random orange color for this demo; the "transportation orange" color renders it a little hard to see, but it works well with the rest of the page. It would be a good idea to spend some time exploring colors for this across the site.</p>
+<p>To conform with WCAG 1.4.11, <cite>Non-Text Contrast</cite>, the focus ring needs to have a contrast of at least 3:1 against its adjacent &#8220;exterior&#8221; color, which is <code class="language-css">#fffefe</code>. I picked a random orange color for this demo; the &#8220;transportation orange&#8221; color renders it a little hard to see, but it works well with the rest of the page. It would be a good idea to spend some time exploring colors for this across the site.</p>
 
 <h4>CSS box-shadow and Windows high contrast mode</h4>
 
-<p>Windows ships with a high-contrast mode, which can be toggled on and off with the <kbd><kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>Print Screen</kbd></kbd> keys. One of high-contrast mode's quirks is that, depending on the browser and operating system, it won't display:</p>
+<p>Windows ships with a high-contrast mode, which can be toggled on and off with the <kbd><kbd>Left Shift</kbd> + <kbd>Left Alt</kbd> + <kbd>Print Screen</kbd></kbd> keys. One of high-contrast mode&#8217;s quirks is that, depending on the browser and operating system, it won&#8217;t display:</p>
 
 <ul>
   <li>Background colors</li>
@@ -335,7 +335,7 @@
   <li><code class="language-markup">box-shadow</code>s</li>
 </ul>
 
-<p>WCAG's <cite>Failure Of Success Criterion 2.4.7</cite> highlights <q>&hellip; styling element outlines and borders in a way that removes or renders non-visible the visual focus indicator</q>, which is what we've done by hiding the <code class="language-markup">outline</code> and replacing it with <code class="language-markup">box-shadow</code>. To fix that problem, we simply add a transparent <code class="language-markup">outline</code> to the CSS block:</p>
+<p>WCAG&#8217;s <cite>Failure Of Success Criterion 2.4.7</cite> highlights <q>&hellip; styling element outlines and borders in a way that removes or renders non-visible the visual focus indicator</q>, which is what we&#8217;ve done by hiding the <code class="language-markup">outline</code> and replacing it with <code class="language-markup">box-shadow</code>. To fix that problem, we simply add a transparent <code class="language-markup">outline</code> to the CSS block:</p>
 
 <pre>
   <code class="language-css">
@@ -347,9 +347,9 @@
   </code>
 </pre>
 
-<p>This won't show up if high-contrast mode isn't enabled, but if it is, Windows will style it as a visible focus indicator. It won't have rounded corners, but at least the user will know where they're focused on the page.</p>
+<p>This won&#8217;t show up if high-contrast mode isn&#8217;t enabled, but if it is, Windows will style it as a visible focus indicator. It won&#8217;t have rounded corners, but at least the user will know where they&#8217;re focused on the page.</p>
 
-<p>Incidentally, we've also added a transparent border to each tag for a similar reason. Because background colors aren't displayed, without a border, the user would just see words with the # symbol in front of them. Adding a border makes them look more clickable.</p>
+<p>Incidentally, we&#8217;ve also added a transparent border to each tag for a similar reason. Because background colors aren&#8217;t displayed, without a border, the user would just see words with the # symbol in front of them. Adding a border makes them look more clickable.</p>
 
 <h3>Removing the <code class="language-markup">&lt;hr&gt;</code> elements before and after the navigation</h3>
 
