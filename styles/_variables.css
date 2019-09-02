@@ -1,0 +1,18 @@
+:root{
+--black:hsl(0,0%,0%);
+--white:hsl(0,0%,100%);
+--links:hsl(214,73%,43%);
+--civic-page-bg:#fffefe;
+--transportation:hsl(353,68%,57%);
+--housing:hsl(175,76%,41%);
+--gentrification:hsl(214,73%,43%);
+--transit:hsl(294,62%,30%);
+--portland:hsl(39,100%,57%);
+--demo:hsl(304,7%,42%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior:smooth;
+  }
+}
