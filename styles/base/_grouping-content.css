@@ -1,0 +1,16 @@
+/* Grouping content: https://html.spec.whatwg.org/#grouping-content */
+
+address {
+  font-style:normal;
+}
+
+hr {
+  border:0;
+}
+
+pre {
+  hanging-punctuation:none;
+  hyphens:none;
+  tab-size:2;
+  white-space:pre;
+}
