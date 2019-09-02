@@ -1,3 +1,7 @@
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none;
 }
+
+.focus-visible{
+  outline:hsl(18,88%,50%) solid 2px;
+}
