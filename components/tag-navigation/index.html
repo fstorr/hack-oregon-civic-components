@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="../../styles/styles.css">
+  <title>Tag navigation - Hack Oregon components</title>
+  <style>
+
+    :root{
+    font-size:100%;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+    -moz-osx-font-smoothing:grayscale;      
+    -webkit-font-smoothing:antialiased;
+    --black:hsl(0,0%,0%);
+    --white:hsl(0,0%,100%);
+    --civic-page-bg:#fffefe;
+    --transportation:hsl(353, 68%, 57%);
+    --housing:hsl(175, 76%, 41%);
+    --gentrification:hsl(214, 73%, 43%);
+    --transit:hsl(294, 62%, 30%);
+    --portland:hsl(39, 100%, 57%);
+    --demo:hsl(304, 7%, 42%);
+   }
+
+   @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior:smooth;
+    }
+  }
+
+    *, *::after, *::before{
+      box-sizing:inherit;
+    }
+
+    body{
+      background:var(--white);
+      color:var(--black);
+      display:grid;
+      font:1rem/1.5 sans-serif;
+      grid-template-columns:1fr minmax(20rem, 90ch) 1fr;
+    }
+
+    [contenteditable]:focus, [tabindex="0"]:focus, a[href]:focus, area[href]:focus, button:not([disabled]):focus, embed:focus, iframe:focus, input:not([disabled]):focus, object:focus, select:not([disabled]):focus, summary:focus, textarea:not([disabled]):focus{
+      outline:hsl(18,88%,50%) solid 2px;
+    }
+
+    main{
+      background:var(--civic-page-bg);
+      grid-column:2 / 3;
+      border:1px solid;
+      padding:1rem;
+    }
+
+    body > footer{
+      background:hsl(0,0%,90%);
+      grid-column:2/3;
+      margin-top:1rem;
+      padding:1rem;
+    }
+
+    footer > address{
+      display:inline;
+    }
+
+    abbr{
+      cursor:help;
+      text-decoration: underline dotted;      
+    }
+
+    kbd{
+    background-color: hsl(210,25%,98%);
+    border: 1px solid #c6cbd1;
+    border-bottom-color: hsl(210,8%,76%);
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 hsl(210,8%,62%);
+    color: hsl(0,12%,10%);
+    display: inline-block;
+    font-size:0.6875rem;
+    line-height:1.2;
+    padding:0.363636364em 0.454545455em;
+    vertical-align: middle;
+    }
+
+    .btn{
+      background:hsl(0,0%,100%);
+      border:1px solid hsl(0,0%,50%);
+      border-radius:3px;
+      cursor:pointer;
+      font:inherit;
+      margin:0;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .hidden-visually {
+      clip:rect(0,0,0,0);
+      -webkit-clip-path:inset(50%);
+      clip-path:inset(50%);
+      height:1px;
+      overflow:hidden;
+      position:absolute;
+      white-space:nowrap;
+      width:1px;
+    }
+
+  .skip-link:focus{
+    background:hsl(0,0%,0%);
+    clip:auto;
+    clip-path:none;
+    color:hsl(50,100%,50%);
+    height:initial;
+    padding:1rem;
+    text-decoration:none;
+    width:initial;
+ }
+
+ .example{
+  border-bottom:3px solid darkblue;
+  border-top:3px solid darkblue;
+ }
+
+ blockquote{
+   border-left:0.33em solid hsl(0,0%,80%);
+   border-bottom-left-radius:5px;
+   border-top-left-radius:5px;
+   margin-left:1.33rem;
+   padding-left:0.66em;
+ }
+
+ blockquote p:first-of-type::before{
+   content:open-quote;
+ }
+
+ blockquote p:last-of-type::after{
+   content:close-quote;
+ }
+
+ blockquote p:last-of-type{
+   margin-bottom:0.5em;
+ }
+
+ blockquote cite{
+   font-size:0.875rem;
+ }
+
+ samp{
+   background:hsl(60,100%,95%);
+   border-radius:0.3em;
+   font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+   font-size:1em;
+   padding:0.1em;
+ }
+
+ #tags{
+   border-bottom:1px solid hsl(109,0%,60%);
+   border-top:1px solid hsl(109,0%,60%);
+   margin:1rem 0;
+ }
+
+ .tag-nav{
+   display:flex;
+   flex-wrap:wrap;
+   line-height:2.75;
+   list-style:none;
+   margin:0.45rem 0;
+   padding:0;
+ }
+
+ a[class^=tag--]{
+   /* adding a 1px solid transparent border makes this look more clickable in Windows high-contrast mode. */
+   border:1px solid transparent;
+   border-radius:1em;
+   color:var(--white);
+   font-weight:bold;
+   padding:0.33em 2em;
+   margin:0.5em;
+   text-decoration:none;
+ }
+
+ a[class^=tag--]:focus{
+   box-shadow: 0 0 0 2px hsl(18,88%,50%);
+   /* needed for Windows high-contrast mode */
+   outline:2px solid transparent;
+ }
+
+ .tag--transportation{
+   background:var(--transportation);
+ }
+
+ .tag--housing{
+   background:var(--housing);
+ }
+
+ .tag--gentrification{
+   background:var(--gentrification);
+ }
+
+ .tag--transit{
+   background:var(--transit);
+ }
+
+ .tag--portland{
+   background:var(--portland);
+ }
+ .tag--demo{
+   background:var(--demo);
+ }
+  
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Tag navigation</h1>
+
+    <p>Improving the accessibility of the tag navigation. The example content is taken from an existing Civic component.</p>
+
+    <section aria-label="example content" class="example">
+
+      <nav aria-label="Tags" id="tags">
+        <ul class="tag-nav">
+          <li>
+            <a class="tag--transportation" href="#">#Transportation</a>
+          </li>
+          <li>
+            <a class="tag--housing" href="#">#Housing</a>
+          </li>
+          <li>
+            <a class="tag--gentrification" href="#">#Gentrification</a>
+          </li>
+          <li>
+            <a class="tag--transit" href="#">#Transit</a>
+          </li>
+          <li>
+            <a class="tag--portland" href="#">#Portland</a>
+          </li>
+          <li>
+            <a class="tag--demo" href="#">#Demo</a>
+          </li>
+        </ul>
+      </nav>
+
+    </section>
+
+    <section aria-labelledby="whats-going-on">
+    
+      <h2 id="whats-going-on">What&#8217;s going on in the code?</h2>
+
+      <p>This one's relatively simple. We'll start by changing the elements that the tags are contained in.</p>
+
+      <h3>The <code class="language-markup">&lt;nav&gt;</code> element</h3>
+        
+      <p>The existing site wraps the tags in a <code class="language-markup">&lt;section&gt;</code> element, but a <a href="https://www.w3.org/TR/html53/sections.html#the-nav-element"><code class="language-markup">&lt;nav&gt;</code> element</a> would be more suitable. The HTML spec defines it like this:</p>
+
+      <blockquote>
+        <p>The <code class="language-markup">&lt;nav&gt;</code> element represents a section of a page that links to other pages or to parts within the page: a section with navigation links.</p>
+        <footer>
+          <cite>The HTML 5.3 specification for the <code class="language-markup">&lt;nav&gt;</code> element.</cite>
+        </footer>
+      </blockquote>
+
+      <p>The <code class="language-markup">&lt;nav&gt;</code> element creates a <a href="https://www.w3.org/TR/wai-aria-practices/examples/landmarks/index.html">landmark area</a> that can help screen-reader users identify and quickly move to. Without any extra labelling, a screen reader will announce a <code class="language-markup">&lt;nav&gt;</code> element as <samp>navigation</samp>. This is okay if a page only has one block of navigation, but isn't helpful where there are multiple blocks. Hearing <samp>navigation, navigation, navigation</samp> doesn't make wayfinding easy. We can fix this with an <code class="language-markup">aria-label</code> element, which in this example is <code class="language-markup">aria-label="tags"</code>. We don't want to say "tags navigation" because a screen reader would announce <samp>tags navigation navigation</samp>.</p>
+
+      <h3>Grouping the tags using a list</h3>
+
+      <p>The current site uses a series of <code class="language-markup">&lt;span&gt;</code> elements to create the tags. The tags are are a list of related content, so we should group them in a list element. This principle is mentioned in the HTML 5.3 spec for the <code class="language-markup">&lt;nav&gt;</code> element:</p>
+
+      <blockquote>
+        <p>In cases where the content of a <code class="language-markup">&lt;nav&gt;</code> element represents a list of items, use list markup to aid understanding and navigation.</p>
+        <footer>
+          <cite>A note from the HTML 5.3 spec for the <code class="language-markup">&lt;nav&gt;</code> element.</cite>
+        </footer>
+      </blockquote>
+
+      <p>There's no set order for the list items, so we can use an unordered list (<code class="language-markup">&lt;ul&gt;</code>) element.</p>
+
+      <h3>Making the tags accessible to keyboard and assistive technology users</h3>
+
+      <p>The current site uses <code class="language-markup">&lt;span&gt;</code> elements with JavaScript event listeners to create clickable tags. The problem with this is that <code class="language-markup">&lt;span&gt;</code> elements have no semantics, they're just inline containers that are handy for things like styling. Keyboard users can't tab to them and assistive technology users won't be able to discover or interact with them as links. Essentially, someone can only use the tags if they can see and use a mouse or other <a href="http://www.continuetolearn.uiowa.edu/nas1/07c187/Module%204/module_4_p3.html">pointing device</a>. The easy solution for this is to change the <code class="language-markup">&lt;span&gt;</code> elements into <code class="language-markup">&lt;a&gt;</code> elements, not forgetting that they must have an <code class="language-markup">href</code> attribute to key keyboard accessible and findable by assistive technology.</p>
+
+      <p>The final HTML for our tags navigation block looks like this:</p>
+
+<pre>
+  <code class="language-markup">
+      &lt;nav aria-label=&quot;Tags&quot;&gt;
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;a href=&quot;&hellip;&quot;&gt;#Transportation&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;a href=&quot;&hellip;&quot;&gt;#Housing&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;a href=&quot;&hellip;&quot;&gt;#Gentrification&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;a href=&quot;&hellip;&quot;&gt;#Transit&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;a href=&quot;&hellip;&quot;&gt;#Portland&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;a href=&quot;&hellip;&quot;&gt;#Demo&lt;/a&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;    
+  </code>
+</pre>
+
+<h3>Adding focus styles to the links</h3>
+
+<p>There are several <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.1 criteria that impact the focus styling for links (focus styling is where a link is tabbed to using the keyboard):</p>
+
+<ul>
+  <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html">Success criterion 2.4.7</a>, <cite>Focus Visible</cite>, requires a visible focus indicator for anything that can be operated with a keyboard, which includes links.</li>
+  <li>The related <a href="https://www.w3.org/WAI/WCAG21/Techniques/failures/F78"><cite>Failure Of Success Criterion 2.4.7</cite></a> guidance comes into play because of the way we're going to style our focus indicator.</li>
+  <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html">Success criterion 1.4.11</a>, <cite>Non-Text Contrast</cite></a>, requires a focus indicator has a contrast of at least 3:1 against its adjacent color.</li>
+  <li><a href="https://www.w3.org/WAI/WCAG21/Techniques/general/G195"><cite>Using an author-supplied, highly-visible focus indicator</cite></a>.</li>
+</ul>
+
+<p>The usual way to add focus highlighting to an element is to use CSS to apply an <code class="language-css">outline</code>. This creates a rectangular border around the element. Because our tags have rounded edges, a rectangle doesn't look attractive. Unfortunately, the styling options for <code class="language-css">outline</code> are limited, and it's not possible to add a <code class="language-css">border-radius</code>. What we can do is to use a CSS <code class="language-css">box-shadow</code> to create a rounded border around the links when they're focused on. Like the <code class="language-css">outline</code> rule, and unlike the <code class="language-markup">border</code> rule, <code class="language-css">box-shadow</code> isn't part of the <a href="https://www.w3schools.com/css/css_boxmodel.asp">CSS box model</a>, so doesn't cause the size of the links to grow and shrink as the user interacts with them.</p>
+
+<p>To conform with WCAG 1.4.11, <cite>Non-Text Contrast</cite>, the focus ring needs to have a contrast of at least 3:1 against its adjacent "exterior" color, which is <code class="language-css">#fffefe</code>. I picked a random orange color for this demo; the "transportation orange" color renders it a little hard to see, but it works well with the rest of the page. It would be a good idea to spend some time exploring colors for this across the site.</p>
+
+<h4>CSS box-shadow and Windows high contrast mode</h4>
+
+<p>Windows ships with a high-contrast mode, which can be toggled on and off with the <kbd><kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>Print Screen</kbd></kbd> keys. One of high-contrast mode's quirks is that, depending on the browser and operating system, it won't display:</p>
+
+<ul>
+  <li>Background colors</li>
+  <li>Background images</li>
+  <li><code class="language-markup">box-shadow</code>s</li>
+</ul>
+
+<p>WCAG's <cite>Failure Of Success Criterion 2.4.7</cite> highlights <q>&hellip; styling element outlines and borders in a way that removes or renders non-visible the visual focus indicator</q>, which is what we've done by hiding the <code class="language-markup">outline</code> and replacing it with <code class="language-markup">box-shadow</code>. To fix that problem, we simply add a transparent <code class="language-markup">outline</code> to the CSS block:</p>
+
+<pre>
+  <code class="language-css">
+      a[class^=tag--]:focus{
+        box-shadow: 0 0 0 2px hsl(18,88%,50%);
+        /* needed for Windows high-contrast mode */
+        outline:2px solid transparent;
+      }    
+  </code>
+</pre>
+
+<p>This won't show up if high-contrast mode isn't enabled, but if it is, Windows will style it as a visible focus indicator. It won't have rounded corners, but at least the user will know where they're focused on the page.</p>
+
+<p>Incidentally, we've also added a transparent border to each tag for a similar reason. Because background colors aren't displayed, without a border, the user would just see words with the # symbol in front of them. Adding a border makes them look more clickable.</p>
+
+<h3>Removing the <code class="language-markup">&lt;hr&gt;</code> elements before and after the navigation</h3>
+
+  <p>The existing site uses the <a href="https://www.w3.org/TR/html53/grouping-content.html#the-hr-element"><code class="language-markup">&lt;hr&gt;</code> element</a> to create top and bottom borders, but for this component, CSS borders are more suitable. The HTML spec defines the <code class="language-markup">&lt;hr&gt;</code> element like this:</p>
+
+  <blockquote>
+    <p>The <code class="language-markup">&lt;hr&gt;</code> element represents a paragraph-level thematic break, such as a scene change in a story, or a transition to another topic within a section of a reference book.</p>
+    <footer>
+      <cite>The HTML 5.3 specification for the <code class="language-markup">&lt;blockquote&gt;</code> element.</cite>
+    </footer>
+  </blockquote>
+
+  <p>The presence of the <code class="language-markup">&lt;nav&gt;</code> element creates the semantic structure in the document, so the <code class="language-markup">&lt;hr&gt;</code> elements are superfluous.</p>
+    
+    </section>
+
+  </main>
+
+  <footer>
+    Questions? Contact <address role="presentation"><a href="mailto:francis.storr@hackoregon.org">Francis Storr</a></address>
+  </footer>
+
+  <script src="../../scripts/focus-visible.js"></script>
+  <script src="../../scripts/prism.js"></script>
+
+</body>
+</html>
