@@ -5,212 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="../../styles/styles.css">
   <title>Tag navigation - Hack Oregon components</title>
-  <style>
-
-    :root{
-    font-size:100%;
-    box-sizing:border-box;
-    scroll-behavior:smooth;
-    -moz-osx-font-smoothing:grayscale;      
-    -webkit-font-smoothing:antialiased;
-    --black:hsl(0,0%,0%);
-    --white:hsl(0,0%,100%);
-    --civic-page-bg:#fffefe;
-    --transportation:hsl(353, 68%, 57%);
-    --housing:hsl(175, 76%, 41%);
-    --gentrification:hsl(214, 73%, 43%);
-    --transit:hsl(294, 62%, 30%);
-    --portland:hsl(39, 100%, 57%);
-    --demo:hsl(304, 7%, 42%);
-   }
-
-   @media (prefers-reduced-motion: no-preference) {
-    :root {
-      scroll-behavior:smooth;
-    }
-  }
-
-    *, *::after, *::before{
-      box-sizing:inherit;
-    }
-
-    body{
-      background:var(--white);
-      color:var(--black);
-      display:grid;
-      font:1rem/1.5 sans-serif;
-      grid-template-columns:1fr minmax(20rem, 90ch) 1fr;
-    }
-
-    [contenteditable]:focus, [tabindex="0"]:focus, a[href]:focus, area[href]:focus, button:not([disabled]):focus, embed:focus, iframe:focus, input:not([disabled]):focus, object:focus, select:not([disabled]):focus, summary:focus, textarea:not([disabled]):focus{
-      outline:hsl(18,88%,50%) solid 2px;
-    }
-
-    main{
-      background:var(--civic-page-bg);
-      grid-column:2 / 3;
-      border:1px solid;
-      padding:1rem;
-    }
-
-    body > footer{
-      background:hsl(0,0%,90%);
-      grid-column:2/3;
-      margin-top:1rem;
-      padding:1rem;
-    }
-
-    footer > address{
-      display:inline;
-    }
-
-    abbr{
-      cursor:help;
-      text-decoration: underline dotted;      
-    }
-
-    kbd{
-    background-color: hsl(210,25%,98%);
-    border: 1px solid #c6cbd1;
-    border-bottom-color: hsl(210,8%,76%);
-    border-radius: 3px;
-    box-shadow: inset 0 -1px 0 hsl(210,8%,62%);
-    color: hsl(0,12%,10%);
-    display: inline-block;
-    font-size:0.6875rem;
-    line-height:1.2;
-    padding:0.363636364em 0.454545455em;
-    vertical-align: middle;
-    }
-
-    .btn{
-      background:hsl(0,0%,100%);
-      border:1px solid hsl(0,0%,50%);
-      border-radius:3px;
-      cursor:pointer;
-      font:inherit;
-      margin:0;
-    }
-
-    .hidden{
-      display:none;
-    }
-
-    .hidden-visually {
-      clip:rect(0,0,0,0);
-      -webkit-clip-path:inset(50%);
-      clip-path:inset(50%);
-      height:1px;
-      overflow:hidden;
-      position:absolute;
-      white-space:nowrap;
-      width:1px;
-    }
-
-  .skip-link:focus{
-    background:hsl(0,0%,0%);
-    clip:auto;
-    clip-path:none;
-    color:hsl(50,100%,50%);
-    height:initial;
-    padding:1rem;
-    text-decoration:none;
-    width:initial;
- }
-
- .example{
-  border-bottom:3px solid darkblue;
-  border-top:3px solid darkblue;
- }
-
- blockquote{
-   border-left:0.33em solid hsl(0,0%,80%);
-   border-bottom-left-radius:5px;
-   border-top-left-radius:5px;
-   margin-left:1.33rem;
-   padding-left:0.66em;
- }
-
- blockquote p:first-of-type::before{
-   content:open-quote;
- }
-
- blockquote p:last-of-type::after{
-   content:close-quote;
- }
-
- blockquote p:last-of-type{
-   margin-bottom:0.5em;
- }
-
- blockquote cite{
-   font-size:0.875rem;
- }
-
- samp{
-   background:hsl(60,100%,95%);
-   border-radius:0.3em;
-   font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-   font-size:1em;
-   padding:0.1em;
- }
-
- #tags{
-   border-bottom:1px solid hsl(109,0%,60%);
-   border-top:1px solid hsl(109,0%,60%);
-   margin:1rem 0;
- }
-
- .tag-nav{
-   display:flex;
-   flex-wrap:wrap;
-   line-height:2.75;
-   list-style:none;
-   margin:0.45rem 0;
-   padding:0;
- }
-
- a[class^=tag--]{
-   /* adding a 1px solid transparent border makes this look more clickable in Windows high-contrast mode. */
-   border:1px solid transparent;
-   border-radius:1em;
-   color:var(--white);
-   font-weight:bold;
-   padding:0.33em 2em;
-   margin:0.5em;
-   text-decoration:none;
- }
-
- a[class^=tag--]:focus{
-   box-shadow: 0 0 0 2px hsl(18,88%,50%);
-   /* needed for Windows high-contrast mode */
-   outline:2px solid transparent;
- }
-
- .tag--transportation{
-   background:var(--transportation);
- }
-
- .tag--housing{
-   background:var(--housing);
- }
-
- .tag--gentrification{
-   background:var(--gentrification);
- }
-
- .tag--transit{
-   background:var(--transit);
- }
-
- .tag--portland{
-   background:var(--portland);
- }
- .tag--demo{
-   background:var(--demo);
- }
-  
-  </style>
 </head>
 <body>
   <main>
@@ -218,10 +12,10 @@
 
     <p>Improving the accessibility of the tag navigation. The example content is taken from an existing Civic component.</p>
 
-    <section aria-label="example content" class="example">
+    <section aria-label="example content" class="c-example">
 
-      <nav aria-label="Tags" id="tags">
-        <ul class="tag-nav">
+      <nav aria-label="Tags" class="c-tag-nav">
+        <ul class="o-nav-list c-tag-nav__list">
           <li>
             <a class="tag--transportation" href="#">#Transportation</a>
           </li>
@@ -368,7 +162,7 @@
 
   </main>
 
-  <footer>
+  <footer class="c-contentinfo">
     Questions? Contact <address role="presentation"><a href="mailto:francis.storr@hackoregon.org">Francis Storr</a></address>
   </footer>
 
