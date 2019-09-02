@@ -1,10 +1,10 @@
-@import url(_variables.css);
+@import url(variables.css);
 
 /* base styles, mostly resets */
-@import url(base/_forms.css);
-@import url(base/_grouping-content.css);
-@import url(base/_sections.css);
-@import url(base/_text-level-semantics.css);
+@import url(base/forms.css);
+@import url(base/grouping-content.css);
+@import url(base/sections.css);
+@import url(base/text-level-semantics.css);
 
 /* components */
 @import url(components/banner.css);
