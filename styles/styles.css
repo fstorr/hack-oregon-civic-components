@@ -1,3 +1,22 @@
+@import url(variables.css);
+
+/* base styles, mostly resets */
+@import url(base/forms.css);
+@import url(base/grouping-content.css);
+@import url(base/sections.css);
+@import url(base/text-level-semantics.css);
+
+/* components */
+@import url(components/banner.css);
+@import url(components/example.css);
+@import url(components/footer.css);
+@import url(components/lists.css);
+@import url(components/main.css);
+@import url(components/quotes.css);
+@import url(components/tag-navigation.css);
+
+/* third-party related */
 @import url(focus-visible.css);
 @import url(prism.css);
 @import url(prism-accessibility-overrides.css);
+

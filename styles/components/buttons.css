@@ -1,0 +1,8 @@
+.o-btn{
+  background:hsl(0,0%,100%);
+  border:1px solid transparent;
+  border-radius:3px;
+  cursor:pointer;
+  font:inherit;
+  margin:0;
+}

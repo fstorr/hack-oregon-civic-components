@@ -1,0 +1,6 @@
+main{
+  background:var(--civic-page-bg);
+  grid-column:2 / 3;
+  border:1px solid;
+  padding:1rem;
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="../../styles/styles.css">
+  <title>Q and A lists - Hack Oregon components</title>
+  <style>
+
+    :root{
+    font-size:100%;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+    -moz-osx-font-smoothing:grayscale;      
+    -webkit-font-smoothing:antialiased;
+    --black:hsl(0,0%,0%);
+    --white:hsl(0,0%,100%);
+   }
+
+   @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior:smooth;
+    }
+  }
+
+    *, *::after, *::before{
+      box-sizing:inherit;
+    }
+
+    body{
+      background:var(--white);
+      color:var(--black);
+      display:grid;
+      font:1rem/1.5 sans-serif;
+      grid-template-columns:1fr minmax(20rem, 90ch) 1fr;
+    }
+
+    [contenteditable]:focus, [tabindex="0"]:focus, a[href]:focus, area[href]:focus, button:not([disabled]):focus, embed:focus, iframe:focus, input:not([disabled]):focus, object:focus, select:not([disabled]):focus, summary:focus, textarea:not([disabled]):focus{
+      outline:hsl(18,98%,50%) solid 2px;
+    }
+
+    main{
+      grid-column:2 / 3;
+      border:1px solid;
+      padding:1rem;
+    }
+
+    body > footer{
+      background:hsl(0,0%,90%);
+      grid-column:2/3;
+      margin-top:1rem;
+      padding:1rem;
+    }
+
+    footer > address{
+      display:inline;
+    }
+
+    abbr{
+      cursor:help;
+      text-decoration: underline dotted;      
+    }
+
+    .btn{
+      background:hsl(0,0%,100%);
+      border:1px solid hsl(0,0%,50%);
+      border-radius:3px;
+      cursor:pointer;
+      font:inherit;
+      margin:0;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .hidden-visually {
+      clip:rect(0,0,0,0);
+      -webkit-clip-path:inset(50%);
+      clip-path:inset(50%);
+      height:1px;
+      overflow:hidden;
+      position:absolute;
+      white-space:nowrap;
+      width:1px;
+    }
+
+  .skip-link:focus{
+    background:hsl(0,0%,0%);
+    clip:auto;
+    clip-path:none;
+    color:hsl(50,100%,50%);
+    height:initial;
+    padding:1rem;
+    text-decoration:none;
+    width:initial;
+ }
+
+ .example{
+  border-bottom:3px solid darkblue;
+  border-top:3px solid darkblue;
+ }
+
+ .data-q-and-a dt{
+  font-weight:bold;
+ }
+
+ .data-q-and-a dd{
+  margin-left:0;
+  margin-bottom:.75em;
+ }
+
+ blockquote{
+   border-left:0.33em solid hsl(0,0%,80%);
+   border-bottom-left-radius:5px;
+   border-top-left-radius:5px;
+   margin-left:1.33rem;
+   padding-left:0.66em;
+ }
+
+ samp{
+   background:hsl(60,100%,95%);
+   border-radius:0.3em;
+   font-family:Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+   font-size:1em;
+   padding:0.1em;
+ }
+  
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Q &amp; A lists</h1>
+
+    <p>Improving the accessibility of the Q &amp; A lists. The example content is taken from an existing Civic component.</p>
+
+    <section aria-label="example content" class="example">
+
+      <h3 id="dsnah">Dataset Name and History</h3>
+
+      <dl aria-labelledby="dsnah" class="data-q-and-a">
+        <dt>What is the full dataset name?</dt>
+        <dd>TOAD (Transit Operations Analytics Data)</dd>
+        <dt>What was the original purpose of this dataset?</dt>
+        <dd>Tracking transit ridership and operations for reporting purposes</dd>
+        <dt>How was this dataset originally used? Be specific, and address impact.</dt>
+        <dd>TriMet produces ridership statistics at regular, 3-month intervals with this data</dd>
+        <dt>What funding is dependent on the results of this dataset?</dt>
+        <dd>TriMet's operating budget</dd>
+        <dt>What analysis was initially performed on this dataset?</dt>
+        <dd>Possibly one-off analyses, but data is mostly raw</dd>
+        <dt>What organization funded the creation or maintenance of this dataset?</dt>
+        <dd>TriMet/Metro</dd>
+        <dt>What type of legal entity is the funding organization?</dt>
+        <dd>Government Agency</dd>
+        <dt>How is the funding organization funded? If a corporation, what is their business model?</dt>
+        <dd>State/local/regional budget allocations</dd>
+        <dt>Do any other organizations fund the creation or maintenance of this dataset?</dt>
+        <dd>No</dd>
+      </dl>
+
+    </section>
+
+    <section aria-labelledby="whats-going-on">
+    
+      <h2 id="whats-going-on">What&#8217;s going on in the code?</h2>
+
+      <p>This one's quite simple. The existing site uses a mixture of headings and text for questions and answers. The questions are headings (<code class="language-markup">&lt;h4&gt;</code>s and the answers are paragraphs underneath them. This can potentially add a lot of headings to a page, which will make navigation harder for some users, so it's not idea. There is more-suitable markup available in the form of the <a href="https://www.w3.org/TR/html52/grouping-content.html#the-dl-element">definition list element</a>.</p>
+
+      <h3>The definition list</h3>
+
+      <p>The definition list has an interesting past, mainly due to differences in the HTML specification about exactly what constitutes a definition and it's a suitable component for grouping things like questions and answers. We now have clarity on this, as can be seen in the HTML 5.2 spec:</p>
+
+      <blockquote cite="https://www.w3.org/TR/html52/grouping-content.html#the-dl-element">
+        <p>Term-description groups may be names and definitions, <mark>questions and answers</mark>, categories and topics, or any other groups of term-description pairs.</p>
+          <footer>
+            <cite>The HTML 5.2 specification for the <code class="language-markup">&lt;dl&gt;</code> element.</cite>
+          </footer>
+      </blockquote>
+
+      <p>The definition list is different from the ordered and unordered lists because:</p>
+
+      <ul>
+        <li>It takes two different types of list items: the <code class="language-markup">&lt;dt&gt;</code> (term) element and the <code class="language-markup">&lt;dd&gt;</code> description element.</li>
+        <li>The <code class="language-markup">&lt;dt&gt;</code> is used for the question, and the <code class="language-markup">&lt;dd&gt;</code> for the answers. Note that there can be multiple <code class="language-markup">&lt;dd&gt;</code> elements per <code class="language-markup">&lt;dt&gt;</code>.</li>
+        <li>The other interesting difference with the definition list element is that <code class="language-markup">&lt;div&gt;</code>s are allowed as direct children of the <code class="language-markup">&lt;dl&gt;</code> element, which can be useful for styling and scripting. This isn't possible with ordered or unordered lists.</li>
+      </ul>
+
+      <h4>Labelling the list</h4>
+
+      <p>Defintion lists can, like the other list types, be labelled with either <code class="language-markup">aria-labelledby</code> or <code class="language-markup">aria-label</code>. If we do this, it can give a little more information to screen reader users as to the list's subject matter. For example:</p>
+
+      <pre>
+        <code class="language-markup">
+          &lt;h3 id=&quot;dsnah&quot;&gt;Dataset Name and History&lt;/h3&gt;
+
+          &lt;dl aria-labelledby=&quot;dsnah&quot;&gt;
+            &hellip;
+          &lt;/dl&gt;
+        </code>
+      </pre>
+
+      <p>Using <code class="language-markup">aria-labelledby</code> to point at the parent heading element, screen-reader users will hear something similar to <samp>description list Dataset Name and History 9 items</samp>.</p>
+
+      <h2>Considerations for the existing design</h2>
+
+      <p>Because the list will have to have opening and closing tags, you'll have to make sure that a list isn't "chopped off" by a More/Less component. For instance, this, where the closing <code class="language-markup">&lt;/dl&gt;</code> is hidden, wouldn't be good:</p>
+
+    <pre class="language-markup">
+    <code>
+      &lt;dl&gt;
+        &lt;dt&gt;Here&#39;s a question&lt;/dt&gt;
+        &lt;dd&gt;And an answer&lt;/dd&gt;
+        &lt;dt&gt;And another question&lt;/dt&gt;
+        &lt;dd&gt;And another answer&lt;/dd&gt;
+
+      &lt;div id=&quot;more&quot; hidden&gt;
+          &lt;dt&gt;Yet another question&lt;/dt&gt;
+          &lt;dd&gt;Yet another answer&lt;/dd&gt;
+        &lt;/dl&gt;
+      &lt;/div&gt;
+
+      &lt;a href=&quot;#more&quot;&gt;More&lt;/a&gt;
+
+    </code>
+    </pre>
+    
+    </section>
+
+  </main>
+
+  <footer>
+    Questions? Contact <address role="presentation"><a href="mailto:francis.storr@hackoregon.org">Francis Storr</a></address>
+  </footer>
+
+  <script src="../../scripts/focus-visible.js"></script>
+  <script src="../../scripts/prism.js"></script>
+
+</body>
+</html>
