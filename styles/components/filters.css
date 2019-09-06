@@ -1,0 +1,54 @@
+.c-filter-list{
+  list-style:none;
+  padding:0;
+}
+
+.c-filter-status-panel{
+  display:flex;
+  color:hsl(0,0%,100%);
+  flex-wrap:wrap;
+  font-weight:bold;
+  justify-content:center;
+}
+
+.c-filter-status-panel__text{
+  background:hsl(0,0%,28%);
+  border:1px solid hsl(0,0%,0%);
+  border-radius:0.25em;  
+  display:inline-block;
+  padding:0.25em 1em;
+  vertical-align:middle;
+}
+
+.c-dataviz-placeholder{
+  display:block;
+  margin:1rem auto 0;
+}
+
+.c-scr-tgl-container{
+  align-items:center;
+  display:flex;
+  border-bottom:1px solid hsl(200,10%,75%);
+  border-top:1px solid hsl(200,10%,75%);
+  background:hsl(200,10%,95%);
+  justify-content:space-between;
+  padding:1rem;
+  margin-top:1rem;
+}
+
+.c-scr-output{
+  flex:1;
+  padding:0.25em;
+}
+
+.c-scr-output.is-visible{
+  background:hsl(200,10%,99%);
+  border: 1px solid;
+  color:var(--black);
+  margin-left:1rem;
+  text-align: center;
+}
+
+.c-scr-output.is-visible:empty{
+  padding:1em;
+}
