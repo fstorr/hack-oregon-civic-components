@@ -10,13 +10,15 @@
   <main>
     <h1>Filter lists with ARIA live</h1>
 
-    <p>Improving the accessibility of filtering for dataviz. Although the screen will update visually when filters are toggled, people who are blind will won't know automatically anything has changed unless we give them an audible message.</p>
+    <p>Improving the accessibility of filtering for data visualizations. Although the screen will update visually when filters are toggled, without additional code, people who are blind will won't know be told anything has changed unless we give them an audible message.</p>
 
     <section aria-label="example content" class="c-example">
 
       <div aria-labelledby="filter-controls" role="region">
 
         <h2 id="filter-controls">Filter Controls</h2>
+
+        <p>Use the checkboxes to filter the data to get different insights.</p>
         
         <div aria-labelledby="filter-controls" class="c-filter-list" role="group">
           <div>
@@ -57,6 +59,21 @@
     </section>
 
     <section aria-labelledby="whats-going-on">
+
+      <h2 id="whats-going-on">What&#8217;s going on in the code?</h2>
+
+      <h3>Theory</h3>
+
+      <h3>The <code class="language-markup">&lt;output&gt;</code> element</h3>
+
+      <h4>Hiding the <code class="language-markup">&lt;output&gt;</code> element so screen readers will still "watch" it</h4>
+
+      <h3>Other accessibility features</h3>
+
+      <h4>Wrapping the checkboxes in a named group</h4>
+
+      <h4>Giving each checkbox an accessible name</h4>
+
     
      </section>
 
