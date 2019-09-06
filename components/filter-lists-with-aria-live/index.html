@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="../../styles/styles.css">
+  <title>Filter lists with ARIA live - Hack Oregon components</title>
+</head>
+<body>
+  <main>
+    <h1>Filter lists with ARIA live</h1>
+
+    <p>Improving the accessibility of filtering for dataviz. Although the screen will update visually when filters are toggled, people who are blind will won't know automatically anything has changed unless we give them an audible message.</p>
+
+    <section aria-label="example content" class="c-example">
+
+      <div aria-labelledby="filter-controls" role="region">
+
+        <h2 id="filter-controls">Filter Controls</h2>
+        
+        <div aria-labelledby="filter-controls" class="c-filter-list" role="group">
+          <div>
+            <input id="housing" name="housing" type="checkbox">
+            <label for="housing">Housing</label>
+          </div>
+          <div>
+            <input id="disasters" name="disasters" type="checkbox">
+            <label for="disasters">Disasters</label>
+          </div>
+          <div>
+            <input id="elections" name="elections" type="checkbox">
+            <label for="elections">Elections</label>
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+          <h2>Data Viz Section</h2>
+
+          <div class="c-filter-status-panel">
+            <div class="c-filter-status-panel__text"><span class="c-filter-status-panel__filteryn">No filters</span><span class="c-filter-status-panel__filters"></span></div>
+          </div>
+
+          <svg aria-labelledby="dv-title" class="c-dataviz-placeholder" height="133" role="img" viewBox="0 0 400 133" width="400">
+            <rect height="100%" width="100%" style="fill:hsl(240,100%,20%)"></rect>
+              <text dominant-baseline="middle" fill="hsl(240,100%,100%)" id="dv-title" text-anchor="middle" x="50%" y="50%">Your data viz here</text>
+          </svg>
+
+          <div class="c-scr-tgl-container">
+          <button aria-controls="ast-filter-updates" aria-expanded="false" class="o-btn o-toggle-btn" type="button">Toggle viewing output for screen readers</button>
+          <output class="c-scr-output u-hidden-visually" id="ast-filter-updates"></output>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section aria-labelledby="whats-going-on">
+    
+     </section>
+
+  </main>
+
+  <footer class="c-contentinfo">
+    Questions? Contact <address role="presentation"><a href="mailto:francis.storr@hackoregon.org">Francis Storr</a></address>
+  </footer>
+
+  <script src="../../scripts/focus-visible.js"></script>
+  <script src="../../scripts/prism.js"></script>
+
+  <script>
+  
+    document.addEventListener("DOMContentLoaded", function(e){
+
+      function arrayRemove(array, element) {
+        const index = array.indexOf(element);
+        if (index !== -1) {
+          array.splice(index, 1);
+        }
+      }
+      
+      const filterList = document.querySelector('.c-filter-list');
+      const liveRegion = document.querySelector('#ast-filter-updates');
+      const filteringOn = document.querySelector('.c-filter-status-panel__filters');
+      const filteringYn = document.querySelector('.c-filter-status-panel__filteryn');
+      const currentFilterList = [];
+      let filterListLength = 0;
+      let oldFilterListLength = 0;
+
+      filterList.addEventListener('click', currentFilters, false);
+
+      function currentFilters(e){
+        liveRegion.textContent = '';
+        let elm = e.target;
+        
+        if(elm.nodeName === 'INPUT'){
+          let elmName = elm.getAttribute('name');
+          if(elm.checked === true){
+            currentFilterList.push(elmName);
+          }
+          else{
+            arrayRemove(currentFilterList, elmName);
+          }
+
+          filterListLength = currentFilterList.length;
+          updateLiveRegion(filterListLength, elmName);
+          updateFilterText(currentFilterList, filterListLength);
+        }
+      }
+
+      function updateFilterText(currentFilterList, filterListLength){
+        if(filterListLength === 0){
+          filteringYn.textContent = 'No filters';
+        }
+        else{
+          filteringYn.textContent = 'Filtering on: ';
+        }
+        filteringOn.textContent = [...currentFilterList].join(', ');
+      }
+
+      function updateLiveRegion(filterListLength, elmName){
+        let stem = filterListLength === 1 ? '' : 's';
+
+        if(filterListLength === 0){
+          liveRegion.textContent = `${elmName} filter removed. There are no active filters`;
+          console.log(`${elmName} filter removed. There are no active filters`);
+        }
+        else if(filterListLength > oldFilterListLength){
+          liveRegion.textContent = `${elmName} filter added. Now filtering on ${filterListLength} item${stem}`;
+          console.log(`${elmName} filter added. Now filtering on ${filterListLength} item${stem}`);
+        }
+        else if(currentFilterList.length < oldFilterListLength){
+          liveRegion.textContent = `${elmName} filter removed. Now filtering on ${filterListLength} item${stem}`;
+          console.log(`${elmName} filter removed. Now filtering on ${filterListLength} item${stem}`);
+        }
+        oldFilterListLength = currentFilterList.length;
+      }
+
+      const tglBtn = document.querySelector('.o-toggle-btn');
+
+      tglBtn.addEventListener('click', toggleVisibility, false);
+
+      function toggleVisibility(e){
+        const elm = e.target;
+        const tglElm = document.querySelector(`#${elm.getAttribute('aria-controls')}`);
+        console.log(`www ${tglElm}`);
+        if(elm.getAttribute('aria-expanded') === 'false'){
+          elm.setAttribute('aria-expanded', 'true');
+          tglElm.classList.remove('u-hidden-visually');
+          tglElm.classList.add('is-visible');
+        }
+        else{
+          elm.setAttribute('aria-expanded', 'false');
+          tglElm.classList.add('u-hidden-visually');
+          tglElm.classList.remove('is-visible');
+        }
+
+      }
+
+    });
+  
+  </script>
+
+</body>
+</html>
