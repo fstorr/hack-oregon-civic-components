@@ -6,3 +6,16 @@
   font:inherit;
   margin:0;
 }
+
+.o-toggle-btn{
+  background: hsl(200,100%,95%);
+  border:2px solid hsl(240,100%,30%);
+  border-radius:0.25em;
+  color:hsl(240,100%,30%);
+  padding:0.375em 0.75em;
+}
+
+.o-toggle-btn[aria-expanded=true]{
+  background: hsl(240,100%,60%);
+  color: hsl(200,100%,95%);
+}
