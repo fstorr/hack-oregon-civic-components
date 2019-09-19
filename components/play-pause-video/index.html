@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="../../styles/styles.css">
+  <title>Playing and pausing video - Hack Oregon components</title>
+
+  <style>
+  
+  .c-demo-video{
+    max-width:50rem;
+    width:100%;
+  }
+
+  video[poster]{
+    object-fit:cover;
+  }
+
+  .c-video-no-anim-poster{
+    max-width:100%;
+  }
+
+  footer{
+    display:flex;
+  }
+
+  .c-enable-autoplay{
+    cursor:pointer;
+    font-size:0.875rem;
+    margin-left:auto;
+  }
+  
+  </style>
+
+</head>
+<body>
+  <main>
+    <h1>Playing and pausing video</h1>
+
+    <p>Improving the accessibility of the tag navigation. The example content is taken from an existing Civic component.</p>
+
+    <section aria-label="example content" class="c-example">
+
+      <div class="c-video-wrapper">
+        <video class="c-demo-video" loop muted poster="citywide-resilience-poster-2.png" src="../../media/citywide-resilience.mp4" tabindex="0"></video>
+        <!-- use the `muted` attribute to get around promise exceptions with .play() -->
+      </div>
+    
+    </section>
+
+    <section aria-labelledby="whats-going-on">
+    
+        <h2 id="whats-going-on">What&#8217;s going on in the code?</h2>
+
+        <h3>Relevant WCAG documents</h3>
+
+
+        <a href="https://www.w3.org/WAI/WCAG21/Understanding/pause-stop-hide.html">Success Criterion 2.2.2: Pause, Stop, Hide</a>
+        <a href="https://www.w3.org/TR/WCAG20-TECHS/F93.html">F93: Failure of Success Criterion 1.4.2 for absence of a way to pause or stop an HTML5 media element that autoplays</a>
+        
+    </section>
+
+
+    
+
+  </main>
+
+  <footer class="c-contentinfo">
+    <span>Questions? Contact <address role="presentation"><a href="mailto:francis.storr@hackoregon.org">Francis Storr</a></address></span>
+  </footer>
+
+  <script>
+  
+    document.addEventListener("DOMContentLoaded", function(e){
+
+      const vid = document.querySelector('.c-demo-video');
+      const prefersMotion = matchMedia('(prefers-reduced-motion: no-preference)');
+      let userPause = 0;
+
+      /*
+      if prefersMotion matches, the user hasn't specified a preference so we autoplay the video.
+      otherwise, we stop the video.
+      */
+
+      vid.addEventListener('mouseenter', showControls, false);
+      vid.addEventListener('focus', showControls, false);
+      vid.addEventListener('mouseleave', hideControls, false);
+      vid.addEventListener('blur', hideControls, false);
+      vid.addEventListener('pause', pauseCounter, false);
+
+      prefersMotion.addListener(toggleMotion);
+
+      toggleMotion(); /* run the function when the page loads */
+
+      function toggleMotion(e){
+        if(prefersMotion.matches){
+          playVid();
+        }
+        else{
+          pauseVid();
+        }
+        if(localStorage.getItem('pauseAllAutoPlay') === 'true'){
+          pauseVid();
+          addEnableAutoPlayElement();
+          replaceVideoWithPoster();
+        }
+      }
+
+      function showControls() {
+        vid.setAttribute('controls', '');
+      }
+
+      function hideControls() {
+        vid.removeAttribute('controls');
+      }
+
+      function pauseVid(){
+        vid.pause();
+        //vid.load(); 
+        /* 
+        load shows the poster when videos are manually paused by the user.
+        The downside is that it re-loads the video, so there's bandwidth and potential buffering issues.
+        So: although this is a nice easy solution, it's not one we should use.
+         */
+      }
+
+      function playVid(){
+        vid.play();
+      }
+
+      function replacePosterWithVideo(){
+        const demoVideo = `<video class="c-demo-video" loop muted poster="citywide-resilience-poster-2.png" src="../../media/citywide-resilience.mp4" tabindex="0"></video>`;
+        document.querySelector('.c-video-no-anim-poster').parentNode.removeChild(document.querySelector('.c-video-no-anim-poster'));
+        document.querySelector('.c-video-wrapper').insertAdjacentHTML('afterBegin', demoVideo);
+        const vid = document.querySelector('.c-demo-video');
+        playVid();
+      }
+
+      function replaceVideoWithPoster(fromuser){
+        console.log(`assa ${fromuser}`);
+        const vidPoster = `<img alt="your equivalent here" class="c-video-no-anim-poster" src="${vid.getAttribute('poster')}">`;
+        console.log(`cheese ${document.querySelector('.c-demo-video')}`);
+        if(document.querySelector('.c-demo-video')){
+          document.querySelector('.c-demo-video').parentNode.removeChild(document.querySelector('.c-demo-video'));
+        }
+        document.querySelector('.c-video-wrapper').insertAdjacentHTML('afterBegin', vidPoster);
+      }
+      
+      function pauseCounter(){
+        localStorage.setItem('pauseCount', JSON.stringify(userPause+=1));
+        if(parseInt(localStorage.getItem('pauseCount')) === 2){
+          let pauseAll = confirm(`You've paused auto-playing videos twice.
+Would you like to stop all videos auto-playing?`);
+          if(pauseAll === true){
+            pauseVid();
+            localStorage.clear('pauseCount');
+            localStorage.setItem('pauseAllAutoPlay', true);
+            addEnableAutoPlayElement();
+          }
+          else{
+            return false;
+          }
+        }
+      }
+
+      function addEnableAutoPlayElement(){
+        if(!document.querySelector('#enable-autoplay')){
+          const enableAutoPlayElm = `<button aria-popup="dialog" class="btn c-enable-autoplay" id="enable-autoplay" type="button">Enable Autoplaying Videos</button>`;
+          document.querySelector('.c-contentinfo').insertAdjacentHTML('beforeEnd', enableAutoPlayElm);
+          document.querySelector('#enable-autoplay').addEventListener('click', autoPlayModal, false);
+          replaceVideoWithPoster('fromuser');
+        }
+        
+      }
+
+      function autoPlayModal(){
+        alert('okay!');
+        document.querySelector('#enable-autoplay').removeEventListener('click', autoPlayModal, false);
+        document.querySelector('#enable-autoplay').parentNode.removeChild(document.getElementById('enable-autoplay'));
+        localStorage.clear('pauseAllAutoPlay');
+        replacePosterWithVideo();
+      }
+
+    });
+  
+  
+  </script>
+
+  <script src="../../scripts/focus-visible.js"></script>
+  <script src="../../scripts/prism.js"></script>
+
+</body>
+</html>
