@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="stylesheet" href="../../../styles/styles.css" />
+    <title>
+      Experimenting with SVGs and support for Windows high-contrast mode - Hack
+      Oregon components
+    </title>
+
+    <style>
+      button[type="button"] {
+        border: 1px solid hsl(0, 0%, 45%);
+        cursor: pointer;
+        margin-left: 1rem;
+        padding: 0.5em;
+      }
+
+      a {
+        padding: 0.7em;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>
+        Experiments with images, currentColor support, and Windows high-contrast
+        mode
+      </h1>
+
+      <h2>Image with stroke color specified as a hex value on each stroke</h2>
+
+      <a href="https://example.com"
+        ><span>Dummy Link 1</span> <img src="no-current-color.svg" alt=""
+      /></a>
+      <button type="button">
+        <span>Dummy Button 1</span> <img src="no-current-color.svg" alt="" />
+      </button>
+
+      <h2>
+        Image with the color specified on the grouping element, and currentColor
+        used on each Stroke element
+      </h2>
+
+      <a href="https://example.com"
+        ><span>Dummy Link 2</span> <img src="current-color.svg" alt=""
+      /></a>
+      <button type="button">
+        <span>Dummy Button 2</span> <img src="current-color.svg" alt="" />
+      </button>
+
+      <h2>The non-currentColor SVG used, but as SVG directly in the HTML</h2>
+
+      <a href="https://example.com">
+        <span>Dummy Link 3</span>
+        <svg
+          aria-hidden="true"
+          width="29"
+          height="10"
+          viewBox="0 0 29 10"
+          fill="none"
+        >
+          <rect width="29" height="10" fill="white" />
+          <g>
+            <path
+              d="M0.868164 0.619629L15.7106 9.10491"
+              stroke="#201024"
+              stroke-width="2"
+            />
+            <path
+              d="M14.1299 8.98895L28.9723 0.503672"
+              stroke="#201024"
+              stroke-width="2"
+            />
+          </g>
+        </svg>
+      </a>
+      <button type="button">
+        <span>Dummy Button 3</span>
+        <svg
+          aria-hidden="true"
+          width="29"
+          height="10"
+          viewBox="0 0 29 10"
+          fill="none"
+        >
+          <rect width="29" height="10" fill="white" />
+          <g>
+            <path
+              d="M0.868164 0.619629L15.7106 9.10491"
+              stroke="#201024"
+              stroke-width="2"
+            />
+            <path
+              d="M14.1299 8.98895L28.9723 0.503672"
+              stroke="#201024"
+              stroke-width="2"
+            />
+          </g>
+        </svg>
+      </button>
+
+      <h2>The currentColor SVG used, but as SVG directly in the HTML</h2>
+
+      <a href="https://example.com">
+        <span>Dummy Link 4</span>
+        <svg width="29" height="10" viewBox="0 0 29 10" fill="none">
+          <rect width="29" height="10" fill="white" />
+          <g style="color:#201024">
+            <path
+              d="M0.868164 0.619629L15.7106 9.10491"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+            <path
+              d="M14.1299 8.98895L28.9723 0.503672"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          </g>
+        </svg>
+      </a>
+      <button type="button">
+        <span>Dummy Button 4</span>
+        <svg width="29" height="10" viewBox="0 0 29 10" fill="none">
+          <rect width="29" height="10" fill="white" />
+          <g style="color:#201024">
+            <path
+              d="M0.868164 0.619629L15.7106 9.10491"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+            <path
+              d="M14.1299 8.98895L28.9723 0.503672"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+          </g>
+        </svg>
+      </button>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function(e) {
+        const btns = document.querySelectorAll("button[type=button]");
+
+        for (let i = 0; i < btns.length; i++) {
+          btns[i].addEventListener(
+            "click",
+            function(e) {
+              alert(
+                "This button, it goes nowhere and does nothing. Apart from telling you this, that is."
+              );
+            },
+            false
+          );
+        }
+      });
+    </script>
+  </body>
+</html>
